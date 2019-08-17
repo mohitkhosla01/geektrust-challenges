@@ -1,34 +1,52 @@
 package com.dto;
 
+import java.util.List;
+
 public class Person {
 	
 	private String name;
 	private String gender;
-	private String motherName;
-	private String siblingName;
+	private Person spouse;
+	private Person mother;
+	private List<Person> children;
 	
+	public Person(String name, String gender) {
+		this.name = name;
+		this.gender = gender;
+	}
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getGender() {
 		return gender;
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getMotherName() {
-		return motherName;
+
+	public Person getSpouse() {
+		return spouse;
 	}
-	public void setMotherName(String motherName) {
-		this.motherName = motherName;
+	public void setSpouse(Person spouse) {
+		this.spouse = spouse;
 	}
-	public String getSiblingName() {
-		return siblingName;
+
+	public Person getMother() {
+		return mother;
 	}
-	public void setSiblingName(String siblingName) {
-		this.siblingName = siblingName;
+	public void setMother(Person mother) {
+		this.mother = mother;
+	}
+
+	public List<Person> getChildren() {
+		return children;
+	}
+	public void setChildren(List<Person> children) {
+		this.children = children;
 	}
 }
