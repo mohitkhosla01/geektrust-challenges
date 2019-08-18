@@ -1,25 +1,30 @@
 package com.controller;
 
+import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 
-import com.service.FamilyTreeService;
+import com.dto.Person;
+import com.service.FamilyTreeCreateService;
+import com.service.FamilyTreeManageService;
 
 public class FamilyTreeController {
 
 	public static void main(String[] args) {
+		
+		Map<String, Person> familyMembers = new HashMap<String, Person>();
+		/* 
+		 * 'familyMembers' collection stores a map of Person object references for quick lookup.
+		 * KEY: Person names
+		 * VALUE: Person object references
+		 */
 
-		FamilyTreeService.constructInitialFamilyTree();
+		FamilyTreeCreateService.constructInitialFamilyTree(familyMembers);
 
-
-		String[] inputs = {
-				"ADD_CHILD Chitra Aria Female",
-				"GET_RELATIONSHIP Lavnya Maternal-Aunt",
-				"GET_RELATIONSHIP Aria Siblings",
-				"ADD_CHILD Pjali Srutak Male",
-				"GET_RELATIONSHIP Pjali Son",
-				"ADD_CHILD Asva Vani Female",
-				"GET_RELATIONSHIP Vasa Siblings",
-				"GET_RELATIONSHIP Atya Sister-In-Law"
+		String[] inputs = {		    
+				"GET_RELATIONSHIP Satvy Sister-In-Law",
+				"GET_RELATIONSHIP Ish Son",
+				"GET_RELATIONSHIP Misha Daughter"
 		};
 
 		
@@ -34,7 +39,7 @@ public class FamilyTreeController {
 					String childsName = inputParameters[2];
 					String childsGender = inputParameters[3];
 
-					System.out.println(FamilyTreeService.addChild(mothersName, childsName, childsGender));
+					System.out.println(FamilyTreeManageService.addChild(familyMembers, mothersName, childsName, childsGender));
 				}
 				else {
 					System.out.println("INVALID_INPUT");
@@ -46,7 +51,7 @@ public class FamilyTreeController {
 					String person = inputParameters[1];
 					String relationship = inputParameters[2];
 					
-					List<String> relatives = FamilyTreeService.getRelatives(person, relationship);
+					List<String> relatives = FamilyTreeManageService.getRelatives(familyMembers, person, relationship);
 					
 					if(relatives.size() > 0) {
 						for(String relative : relatives) {

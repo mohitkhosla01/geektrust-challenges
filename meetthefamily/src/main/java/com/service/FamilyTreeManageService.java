@@ -1,22 +1,21 @@
 package com.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.dto.Person;
 
-public class FamilyTreeService {
-
-	private static HashMap<String, Person> familyMembers = new HashMap<String, Person>();
+public class FamilyTreeManageService {
+	
+	private static Map<String, Person> familyMembers;
 	/* 
-	 * Storing a local map of Person object references for quick lookup.
-	 * KEY: Person names
-	 * VALUE: Person object references
+	 * 'familyMembers' reference points to the Map created for family members in FamilyTreeController
 	 */
-
-
-	public static String addChild(String mothersName, String childsName, String childsGender) {
+	
+	public static String addChild(Map<String, Person> familyMembers, String mothersName, String childsName, String childsGender) {
+		
+		FamilyTreeManageService.familyMembers = familyMembers;
 
 		if(familyMembers.containsKey(childsName)) {
 			return "CHILD_ADDITION_FAILED";
@@ -46,10 +45,12 @@ public class FamilyTreeService {
 
 		return "CHILD_ADDITION_SUCCEEDED";
 	}
-	
-	
-	public static List<String> getRelatives(String personName, String relationship) {
+
+
+	public static List<String> getRelatives(Map<String, Person> familyMembers, String personName, String relationship) {
 		
+		FamilyTreeManageService.familyMembers = familyMembers;
+
 		if(relationship.equals("Paternal-Uncle")) {
 			return getPaternalUncle(personName, relationship);
 		}
@@ -249,7 +250,7 @@ public class FamilyTreeService {
 				List<Person> spousesMothersChildren = spousesMother.getChildren();
 
 				for(Person spousesMothersChild : spousesMothersChildren) {
-					if(spousesMothersChild.getGender().equals("female")) {
+					if(!spousesMothersChild.getName().equals(person.getSpouse().getName()) && spousesMothersChild.getGender().equals("female")) {
 						sistersInLawNames.add(spousesMothersChild.getName());
 					}
 				}
@@ -291,7 +292,7 @@ public class FamilyTreeService {
 				List<Person> spousesMothersChildren = spousesMother.getChildren();
 
 				for(Person spousesMothersChild : spousesMothersChildren) {
-					if(spousesMothersChild.getGender().equals("male")) {
+					if(!spousesMothersChild.getName().equals(person.getSpouse().getName()) && spousesMothersChild.getGender().equals("male")) {
 						brothersInLawNames.add(spousesMothersChild.getName());
 					}
 				}
@@ -324,12 +325,14 @@ public class FamilyTreeService {
 
 		Person person = familyMembers.get(personName);
 		Person mother = person.getGender().equals("female") ? person : person.getSpouse();
+		if(mother != null) {
 
-		List<Person> children = mother.getChildren();
+			List<Person> children = mother.getChildren();
 
-		for(Person child : children) {
-			if(child.getGender().equals("male")) {
-				sonsNames.add(child.getName());
+			for(Person child : children) {
+				if(child.getGender().equals("male")) {
+					sonsNames.add(child.getName());
+				}
 			}
 		}
 
@@ -348,12 +351,14 @@ public class FamilyTreeService {
 
 		Person person = familyMembers.get(personName);
 		Person mother = person.getGender().equals("female") ? person : person.getSpouse();
+		if(mother != null) {
 
-		List<Person> children = mother.getChildren();
+			List<Person> children = mother.getChildren();
 
-		for(Person child : children) {
-			if(child.getGender().equals("female")) {
-				daughtersNames.add(child.getName());
+			for(Person child : children) {
+				if(child.getGender().equals("female")) {
+					daughtersNames.add(child.getName());
+				}
 			}
 		}
 
@@ -371,19 +376,21 @@ public class FamilyTreeService {
 		}
 
 		Person mother = familyMembers.get(personName).getMother();
+		if(mother != null) {
 
-		List<Person> children = mother.getChildren();
+			List<Person> children = mother.getChildren();
 
-		for(Person child : children) {
-			if(!child.getName().equals(personName)) {
-				siblingsNames.add(child.getName());
+			for(Person child : children) {
+				if(!child.getName().equals(personName)) {
+					siblingsNames.add(child.getName());
+				}
 			}
 		}
 
 		return siblingsNames;
 	}
-	
-	
+
+
 	public static void constructInitialFamilyTree() {
 
 		// ->-> LEVEL 1 <-<-
@@ -570,13 +577,13 @@ public class FamilyTreeService {
 		List<Person> drithasChildren = new ArrayList<Person>();
 		drithasChildren.add(yodhan);
 		dritha.setChildren(drithasChildren);
-		
-		
+
+
 		// -> SEGMENT 2 <-
 		Person laki = new Person("Laki", "male");
 		laki.setMother(jnki);
 		familyMembers.put("Laki", laki);
-		
+
 		Person lavnya = new Person("Lavnya", "female");
 		lavnya.setMother(jnki);
 		familyMembers.put("Lavnya", lavnya);
@@ -586,8 +593,8 @@ public class FamilyTreeService {
 		jnkisChildren.add(laki);
 		jnkisChildren.add(lavnya);
 		jnki.setChildren(jnkisChildren);
-		
-		
+
+
 		// -> SEGMENT 3 <-
 		Person vasa = new Person("Vasa", "male");
 		vasa.setMother(satvy);
@@ -597,13 +604,13 @@ public class FamilyTreeService {
 		List<Person> satvysChildren = new ArrayList<Person>();
 		satvysChildren.add(vasa);
 		satvy.setChildren(satvysChildren);
-		
-		
+
+
 		// -> SEGMENT 4 <-
 		Person kriya = new Person("Kriya", "male");
 		kriya.setMother(krpi);
 		familyMembers.put("Kriya", kriya);
-		
+
 		Person krithi = new Person("Krithi", "female");
 		krithi.setMother(krpi);
 		familyMembers.put("Krithi", krithi);
