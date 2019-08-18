@@ -29,6 +29,8 @@ public class FamilyTreeController {
 		
 		
 		Scanner sc = new Scanner(System.in);
+		System.out.println("-> -> ->  Welcome to 'Meet the Family' Geektrust backend challenge  <- <- <-");
+		System.out.print("Enter the input file path: ");
 		String fileSource = sc.nextLine();
 		
 		try {
