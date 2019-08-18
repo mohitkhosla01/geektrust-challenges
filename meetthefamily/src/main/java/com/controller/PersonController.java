@@ -32,10 +32,10 @@ public class PersonController {
 	private static String addChild(String motherName, String childName, String gender) {
 
 		if(familyMembers.containsKey(childName)) {
-			return "PERSON_ALREADY_EXISTS";
+			return "CHILD_ADDITION_FAILED";
 		}
 		if(!familyMembers.containsKey(motherName)) {
-			return "PERSON_NOT_FOUND";
+			return "CHILD_ADDITION_FAILED";
 		}
 		if(familyMembers.containsKey(motherName) && !familyMembers.get(motherName).getGender().equals("female")) {
 			return "CHILD_ADDITION_FAILED";
@@ -43,7 +43,7 @@ public class PersonController {
 
 		gender = gender.toLowerCase();
 		if(!(gender.equals("male") || gender.equals("female"))) {
-			return "GENDER_INVALID";
+			return "CHILD_ADDITION_FAILED";
 		}
 
 		Person child = new Person(childName, gender);
@@ -57,7 +57,7 @@ public class PersonController {
 		
 		familyMembers.put(childName, child);
 
-		return null;
+		return "CHILD_ADDITION_SUCCEEDED";
 	}
 	
 	
@@ -82,17 +82,17 @@ public class PersonController {
 			return uncleNames;
 		}
 		
-		Person grandmother = father.getMother();
-		if(grandmother == null) {
+		Person paternalGrandmother = father.getMother();
+		if(paternalGrandmother == null) {
 			uncleNames.add("PERSON_NOT_FOUND");
 			return uncleNames;
 		}
 		
-		List<Person> grandmothersChildren = grandmother.getChildren();
+		List<Person> paternalGrandmothersChildren = paternalGrandmother.getChildren();
 		
-		for(Person grandmothersChild : grandmothersChildren) {
-			if(!grandmothersChild.getName().equals(father.getName()) && grandmothersChild.getGender().equals("male")) {
-				uncleNames.add(grandmothersChild.getName());
+		for(Person paternalGrandmothersChild : paternalGrandmothersChildren) {
+			if(!paternalGrandmothersChild.getName().equals(father.getName()) && paternalGrandmothersChild.getGender().equals("male")) {
+				uncleNames.add(paternalGrandmothersChild.getName());
 			}
 		}
 		
@@ -115,17 +115,17 @@ public class PersonController {
 			return uncleNames;
 		}
 		
-		Person grandmother = mother.getMother();
-		if(grandmother == null) {
+		Person maternalGrandmother = mother.getMother();
+		if(maternalGrandmother == null) {
 			uncleNames.add("PERSON_NOT_FOUND");
 			return uncleNames;
 		}
 		
-		List<Person> grandmothersChildren = grandmother.getChildren();
+		List<Person> maternalGrandmothersChildren = maternalGrandmother.getChildren();
 		
-		for(Person grandmothersChild : grandmothersChildren) {
-			if(grandmothersChild.getGender().equals("male")) {
-				uncleNames.add(grandmothersChild.getName());
+		for(Person maternalGrandmothersChild : maternalGrandmothersChildren) {
+			if(maternalGrandmothersChild.getGender().equals("male")) {
+				uncleNames.add(maternalGrandmothersChild.getName());
 			}
 		}
 		
@@ -135,40 +135,40 @@ public class PersonController {
 	
 	private static List<String> getPaternalAunt(String personName, String relationship) {
 		
-		List<String> uncleNames = new ArrayList<String>();
+		List<String> auntNames = new ArrayList<String>();
 		
 		if(!familyMembers.containsKey(personName)) {
-			uncleNames.add("PERSON_NOT_FOUND");
-			return uncleNames;
+			auntNames.add("PERSON_NOT_FOUND");
+			return auntNames;
 		}
 		
 		Person mother = familyMembers.get(personName).getMother();
 		if(mother == null) {
-			uncleNames.add("PERSON_NOT_FOUND");
-			return uncleNames;
+			auntNames.add("PERSON_NOT_FOUND");
+			return auntNames;
 		}
 		
 		Person father = mother.getSpouse();
 		if(father == null) {
-			uncleNames.add("PERSON_NOT_FOUND");
-			return uncleNames;
+			auntNames.add("PERSON_NOT_FOUND");
+			return auntNames;
 		}
 		
-		Person grandmother = father.getMother();
-		if(grandmother == null) {
-			uncleNames.add("PERSON_NOT_FOUND");
-			return uncleNames;
+		Person paternalGrandmother = father.getMother();
+		if(paternalGrandmother == null) {
+			auntNames.add("PERSON_NOT_FOUND");
+			return auntNames;
 		}
 		
-		List<Person> grandmothersChildren = grandmother.getChildren();
+		List<Person> paternalGrandmothersChildren = paternalGrandmother.getChildren();
 		
-		for(Person grandmothersChild : grandmothersChildren) {
-			if(grandmothersChild.getGender().equals("female")) {
-				uncleNames.add(grandmothersChild.getName());
+		for(Person paternalGrandmothersChild : paternalGrandmothersChildren) {
+			if(paternalGrandmothersChild.getGender().equals("female")) {
+				auntNames.add(paternalGrandmothersChild.getName());
 			}
 		}
 		
-		return uncleNames;
+		return auntNames;
 	}
 	
 	
@@ -187,31 +187,104 @@ public class PersonController {
 			return auntNames;
 		}
 		
-		Person grandmother = mother.getMother();
-		if(grandmother == null) {
+		Person maternalGrandmother = mother.getMother();
+		if(maternalGrandmother == null) {
 			auntNames.add("PERSON_NOT_FOUND");
 			return auntNames;
 		}
 		
-		List<Person> grandmothersChildren = grandmother.getChildren();
+		List<Person> maternalGrandmothersChildren = maternalGrandmother.getChildren();
 		
-		for(Person grandmothersChild : grandmothersChildren) {
-			if(!grandmothersChild.getName().equals(mother.getName()) && grandmothersChild.getGender().equals("female")) {
-				auntNames.add(grandmothersChild.getName());
+		for(Person maternalGrandmothersChild : maternalGrandmothersChildren) {
+			if(!maternalGrandmothersChild.getName().equals(mother.getName()) && maternalGrandmothersChild.getGender().equals("female")) {
+				auntNames.add(maternalGrandmothersChild.getName());
 			}
 		}
 		
 		return auntNames;
 	}
 	
-	private static List<String> getSistersInLaw(String personName, String relationship) {
+	
+	private static List<String> getSistersInLaw(String personName, String relationship) {	
 		
-		return null;
+		List<String> sistersInLawNames = new ArrayList<String>();
+		
+		if(!familyMembers.containsKey(personName)) {
+			sistersInLawNames.add("PERSON_NOT_FOUND");
+			return sistersInLawNames;
+		}
+		
+		Person person = familyMembers.get(personName);
+		
+		Person spouse = person.getSpouse();
+		if(spouse != null) {
+			
+			Person spousesMother = spouse.getMother();
+			if(spousesMother != null) {
+				
+				List<Person> spousesMothersChildren = spousesMother.getChildren();
+				
+				for(Person spousesMothersChild : spousesMothersChildren) {
+					if(spousesMothersChild.getGender().equals("female")) {
+						sistersInLawNames.add(spousesMothersChild.getName());
+					}
+				}
+			}
+		}
+		
+		Person mother = person.getMother();
+		if(mother != null) {
+			List<Person> mothersChildren = mother.getChildren();
+			
+			for(Person mothersChild : mothersChildren) {
+				if(!mothersChild.getName().equals(person.getName()) && mothersChild.getGender().equals("male") && mothersChild.getSpouse() != null) {
+					sistersInLawNames.add(mothersChild.getSpouse().getName());
+				}
+			}
+		}
+		
+		return sistersInLawNames;
 	}
 	
 	private static List<String> getBrothersInLaw(String personName, String relationship) {
 		
-		return null;
+		List<String> brothersInLawNames = new ArrayList<String>();
+		
+		if(!familyMembers.containsKey(personName)) {
+			brothersInLawNames.add("PERSON_NOT_FOUND");
+			return brothersInLawNames;
+		}
+		
+		Person person = familyMembers.get(personName);
+		
+		Person spouse = person.getSpouse();
+		if(spouse != null) {
+			
+			Person spousesMother = spouse.getMother();
+			if(spousesMother != null) {
+				
+				List<Person> spousesMothersChildren = spousesMother.getChildren();
+				
+				for(Person spousesMothersChild : spousesMothersChildren) {
+					if(spousesMothersChild.getGender().equals("male")) {
+						brothersInLawNames.add(spousesMothersChild.getName());
+					}
+				}
+			}
+		}
+		
+		Person mother = person.getMother();
+		if(mother != null) {
+			List<Person> mothersChildren = mother.getChildren();
+			
+			for(Person mothersChild : mothersChildren) {
+				if(!mothersChild.getName().equals(person.getName()) && mothersChild.getGender().equals("female") && mothersChild.getSpouse() != null) {
+					brothersInLawNames.add(mothersChild.getSpouse().getName());
+				}
+			}
+		}
+		
+		return brothersInLawNames;
 	}
 	
 	private static List<String> getSons(String personName, String relationship) {
