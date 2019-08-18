@@ -1,4 +1,4 @@
-package com.controller;
+package com.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.dto.Person;
 
-public class PersonController {
+public class FamilyTreeService {
 
 	private static HashMap<String, Person> familyMembers = new HashMap<String, Person>();
 	/* 
@@ -16,39 +16,76 @@ public class PersonController {
 	 */
 
 
-	private static String addChild(String motherName, String childName, String gender) {
+	public static String addChild(String mothersName, String childsName, String childsGender) {
 
-		if(familyMembers.containsKey(childName)) {
+		if(familyMembers.containsKey(childsName)) {
 			return "CHILD_ADDITION_FAILED";
 		}
-		if(!familyMembers.containsKey(motherName)) {
-			return "CHILD_ADDITION_FAILED";
+		if(!familyMembers.containsKey(mothersName)) {
+			return "PERSON_NOT_FOUND";
 		}
-		if(familyMembers.containsKey(motherName) && !familyMembers.get(motherName).getGender().equals("female")) {
-			return "CHILD_ADDITION_FAILED";
-		}
-
-		gender = gender.toLowerCase();
-		if(!(gender.equals("male") || gender.equals("female"))) {
+		if(familyMembers.containsKey(mothersName) && !familyMembers.get(mothersName).getGender().equals("female")) {
 			return "CHILD_ADDITION_FAILED";
 		}
 
-		Person child = new Person(childName, gender);
-		child.setMother(familyMembers.get(motherName));
+		childsGender = childsGender.toLowerCase();
+		if(!(childsGender.equals("male") || childsGender.equals("female"))) {
+			return "CHILD_ADDITION_FAILED";
+		}
 
-		List<Person> mothersChildren = familyMembers.get(motherName).getChildren();
+		Person child = new Person(childsName, childsGender);
+		child.setMother(familyMembers.get(mothersName));
+
+		List<Person> mothersChildren = familyMembers.get(mothersName).getChildren();
 		if(mothersChildren == null) {
 			mothersChildren = new ArrayList<Person>();
 		}
 		mothersChildren.add(child);
 
-		familyMembers.put(childName, child);
+		familyMembers.put(childsName, child);
 
 		return "CHILD_ADDITION_SUCCEEDED";
 	}
+	
+	
+	public static List<String> getRelatives(String personName, String relationship) {
+		
+		if(relationship.equals("Paternal-Uncle")) {
+			return getPaternalUncle(personName, relationship);
+		}
+		else if(relationship.equals("Maternal-Uncle")) {
+			return getMaternalUncle(personName, relationship);
+		}
+		else if(relationship.equals("Paternal-Aunt")) {
+			return getPaternalAunt(personName, relationship);
+		}
+		else if(relationship.equals("Maternal-Aunt")) {
+			return getMaternalAunt(personName, relationship);
+		}
+		else if(relationship.equals("Sister-In-Law")) {
+			return getSistersInLaw(personName, relationship);
+		}
+		else if(relationship.equals("Brother-In-Law")) {
+			return getBrothersInLaw(personName, relationship);
+		}
+		else if(relationship.equals("Son")) {
+			return getSons(personName, relationship);
+		}
+		else if(relationship.equals("Daughter")) {
+			return getDaughters(personName, relationship);
+		}
+		else if(relationship.equals("Siblings")) {
+			return getSiblings(personName, relationship);
+		}
+		else {
+			List<String> invalidInput = new ArrayList<String>();
+			invalidInput.add("INVALID_INPUT");
+			return invalidInput;
+		}
+	}
 
 
-	private static List<String> getPaternalUncle(String personName, String relationship) {
+	public static List<String> getPaternalUncle(String personName, String relationship) {
 
 		List<String> uncleNames = new ArrayList<String>();
 
@@ -87,7 +124,7 @@ public class PersonController {
 	}
 
 
-	private static List<String> getMaternalUncle(String personName, String relationship) {
+	public static List<String> getMaternalUncle(String personName, String relationship) {
 
 		List<String> uncleNames = new ArrayList<String>();
 
@@ -120,7 +157,7 @@ public class PersonController {
 	}
 
 
-	private static List<String> getPaternalAunt(String personName, String relationship) {
+	public static List<String> getPaternalAunt(String personName, String relationship) {
 
 		List<String> auntNames = new ArrayList<String>();
 
@@ -159,7 +196,7 @@ public class PersonController {
 	}
 
 
-	private static List<String> getMaternalAunt(String personName, String relationship) {
+	public static List<String> getMaternalAunt(String personName, String relationship) {
 
 		List<String> auntNames = new ArrayList<String>();
 
@@ -192,7 +229,7 @@ public class PersonController {
 	}
 
 
-	private static List<String> getSistersInLaw(String personName, String relationship) {	
+	public static List<String> getSistersInLaw(String personName, String relationship) {	
 
 		List<String> sistersInLawNames = new ArrayList<String>();
 
@@ -234,7 +271,7 @@ public class PersonController {
 	}
 
 
-	private static List<String> getBrothersInLaw(String personName, String relationship) {
+	public static List<String> getBrothersInLaw(String personName, String relationship) {
 
 		List<String> brothersInLawNames = new ArrayList<String>();
 
@@ -276,7 +313,7 @@ public class PersonController {
 	}
 
 
-	private static List<String> getSons(String personName, String relationship) {
+	public static List<String> getSons(String personName, String relationship) {
 
 		List<String> sonsNames = new ArrayList<String>();
 
@@ -300,7 +337,7 @@ public class PersonController {
 	}
 
 
-	private static List<String> getDaughters(String personName, String relationship) {
+	public static List<String> getDaughters(String personName, String relationship) {
 
 		List<String> daughtersNames = new ArrayList<String>();
 
@@ -324,7 +361,7 @@ public class PersonController {
 	}
 
 
-	private static List<String> getSiblings(String personName, String relationship) {
+	public static List<String> getSiblings(String personName, String relationship) {
 
 		List<String> siblingsNames = new ArrayList<String>();
 
@@ -347,17 +384,17 @@ public class PersonController {
 	}
 	
 	
-	private static void constructInitialFamilyTree() {
+	public static void constructInitialFamilyTree() {
 
 		// ->-> LEVEL 1 <-<-
-		Person kingShan = new Person("Shan", "male");
-		Person queenAnga = new Person("Anga", "female");
+		Person shan = new Person("Shan", "male");
+		Person anga = new Person("Anga", "female");
 
-		kingShan.setSpouse(queenAnga);
-		queenAnga.setSpouse(kingShan);
+		shan.setSpouse(anga);
+		anga.setSpouse(shan);
 
-		familyMembers.put("Shan", kingShan);
-		familyMembers.put("Anga", queenAnga);
+		familyMembers.put("Shan", shan);
+		familyMembers.put("Anga", anga);
 
 
 		// ->-> LEVEL 2 <-<-
@@ -365,6 +402,7 @@ public class PersonController {
 		Person amba = new Person("Amba", "female");
 
 		chit.setSpouse(amba);
+		chit.setMother(anga);
 		amba.setSpouse(chit);
 
 		familyMembers.put("Chit", chit);
@@ -379,6 +417,7 @@ public class PersonController {
 		Person lika = new Person("Lika", "female");
 
 		vich.setSpouse(lika);
+		vich.setMother(anga);
 		lika.setSpouse(vich);
 
 		familyMembers.put("Vich", vich);
@@ -389,6 +428,7 @@ public class PersonController {
 		Person chitra = new Person("Chitra", "female");
 
 		aras.setSpouse(chitra);
+		aras.setMother(anga);
 		chitra.setSpouse(aras);
 
 		familyMembers.put("Aras", aras);
@@ -399,6 +439,7 @@ public class PersonController {
 		Person vyan = new Person("Vyan", "male");
 
 		satya.setSpouse(vyan);
+		satya.setMother(anga);
 		vyan.setSpouse(satya);
 
 		familyMembers.put("Satya", satya);
@@ -411,7 +452,7 @@ public class PersonController {
 		angasChildren.add(vich);
 		angasChildren.add(aras);
 		angasChildren.add(satya);
-		queenAnga.setChildren(angasChildren);
+		anga.setChildren(angasChildren);
 
 
 		// ->-> LEVEL 3 <-<-
@@ -421,6 +462,7 @@ public class PersonController {
 		Person jaya = new Person("Jaya", "male");
 
 		dritha.setSpouse(jaya);
+		dritha.setMother(amba);
 		jaya.setSpouse(dritha);
 
 		familyMembers.put("Dritha", dritha);
@@ -428,9 +470,11 @@ public class PersonController {
 
 
 		Person tritha = new Person("Tritha", "female");
+		tritha.setMother(amba);
 		familyMembers.put("Tritha", tritha);
 
 		Person vritha = new Person("Vritha", "male");
+		vritha.setMother(amba);
 		familyMembers.put("Vritha", vritha);
 
 
@@ -443,9 +487,11 @@ public class PersonController {
 
 		// -> SEGMENT 2 <-
 		Person vila = new Person("Vila", "female");
+		vila.setMother(lika);
 		familyMembers.put("Vila", vila);
 
 		Person chika = new Person("Chika", "female");
+		chika.setMother(lika);
 		familyMembers.put("Chika", chika);
 
 
@@ -461,12 +507,14 @@ public class PersonController {
 
 		arit.setSpouse(jnki);
 		jnki.setSpouse(arit);
+		jnki.setMother(chitra);
 
 		familyMembers.put("Arit", arit);
 		familyMembers.put("Jnki", jnki);
 
 
 		Person ahit = new Person("Ahit", "male");
+		ahit.setMother(chitra);
 		familyMembers.put("Ahit", ahit);
 
 
@@ -482,6 +530,7 @@ public class PersonController {
 
 		satvy.setSpouse(asva);
 		asva.setSpouse(satvy);
+		asva.setMother(satya);
 
 		familyMembers.put("Satvy", satvy);
 		familyMembers.put("Asva", asva);
@@ -492,12 +541,14 @@ public class PersonController {
 
 		krpi.setSpouse(vyas);
 		vyas.setSpouse(krpi);
+		vyas.setMother(satya);
 
 		familyMembers.put("Krpi", krpi);
 		familyMembers.put("Vyas", vyas);
 
 
 		Person atya = new Person("Atya", "female");
+		atya.setMother(satya);
 		familyMembers.put("Atya", atya);
 
 
@@ -512,6 +563,7 @@ public class PersonController {
 
 		// -> SEGMENT 1 <-
 		Person yodhan = new Person("Yodhan", "male");
+		yodhan.setMother(dritha);
 		familyMembers.put("Yodhan", yodhan);
 
 
@@ -522,9 +574,11 @@ public class PersonController {
 		
 		// -> SEGMENT 2 <-
 		Person laki = new Person("Laki", "male");
+		laki.setMother(jnki);
 		familyMembers.put("Laki", laki);
 		
 		Person lavnya = new Person("Lavnya", "female");
+		lavnya.setMother(jnki);
 		familyMembers.put("Lavnya", lavnya);
 
 
@@ -536,6 +590,7 @@ public class PersonController {
 		
 		// -> SEGMENT 3 <-
 		Person vasa = new Person("Vasa", "male");
+		vasa.setMother(satvy);
 		familyMembers.put("Vasa", vasa);
 
 
@@ -546,9 +601,11 @@ public class PersonController {
 		
 		// -> SEGMENT 4 <-
 		Person kriya = new Person("Kriya", "male");
+		kriya.setMother(krpi);
 		familyMembers.put("Kriya", kriya);
 		
 		Person krithi = new Person("Krithi", "female");
+		krithi.setMother(krpi);
 		familyMembers.put("Krithi", krithi);
 
 
@@ -556,11 +613,5 @@ public class PersonController {
 		krpisChildren.add(kriya);
 		krpisChildren.add(krithi);
 		krpi.setChildren(krpisChildren);
-	}
-
-
-	public static void main(String[] args) {
-
-		constructInitialFamilyTree();
 	}
 }
