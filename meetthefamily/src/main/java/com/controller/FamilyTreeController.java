@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.dto.Person;
-import com.service.FamilyTreeCreateService;
-import com.service.FamilyTreeManageService;
+import com.service.FamilyTreeAddPersonService;
+import com.service.FamilyTreeGetPersonService;
 
 public class FamilyTreeController {
 
@@ -25,7 +25,7 @@ public class FamilyTreeController {
 		 */
 
 		
-		FamilyTreeCreateService.constructInitialFamilyTree(familyMembers);
+		FamilyTreeAddPersonService.constructInitialFamilyTree(familyMembers);
 		
 		
 		Scanner sc = new Scanner(System.in);
@@ -48,7 +48,7 @@ public class FamilyTreeController {
 						String childsName = inputParameters[2];
 						String childsGender = inputParameters[3];
 
-						System.out.println(FamilyTreeManageService.addChild(familyMembers, mothersName, childsName, childsGender));
+						System.out.println(FamilyTreeAddPersonService.addChild(familyMembers, mothersName, childsName, childsGender));
 					}
 					else {
 						System.out.println("INVALID_INPUT");
@@ -60,7 +60,7 @@ public class FamilyTreeController {
 						String person = inputParameters[1];
 						String relationship = inputParameters[2];
 						
-						List<String> relatives = FamilyTreeManageService.getRelatives(familyMembers, person, relationship);
+						List<String> relatives = FamilyTreeGetPersonService.getRelatives(familyMembers, person, relationship);
 						
 						if(relatives.size() > 0) {
 							for(String relative : relatives) {

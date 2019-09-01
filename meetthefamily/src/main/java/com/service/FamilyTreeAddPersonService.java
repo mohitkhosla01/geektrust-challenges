@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.dto.Person;
+import com.utilities.FamilyTreeEnum;
 
-public class FamilyTreeCreateService {
+public class FamilyTreeAddPersonService {
 
 	public static void constructInitialFamilyTree(Map<String, Person> familyMembers) {
 
@@ -237,5 +238,37 @@ public class FamilyTreeCreateService {
 		krpisChildren.add(kriya);
 		krpisChildren.add(krithi);
 		krpi.setChildren(krpisChildren);
+	}
+	
+	
+	public static String addChild(Map<String, Person> familyMembers, String mothersName, String childsName, String childsGender) {
+
+		if(familyMembers.containsKey(childsName)) {
+			return FamilyTreeEnum.CHILD_ADDITION_FAILED.getMessageAsString();
+		}
+		if(!familyMembers.containsKey(mothersName)) {
+			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsString();
+		}
+		if(familyMembers.containsKey(mothersName) && !familyMembers.get(mothersName).getGender().equals("female")) {
+			return FamilyTreeEnum.CHILD_ADDITION_FAILED.getMessageAsString();
+		}
+
+		childsGender = childsGender.toLowerCase();
+		if(!(childsGender.equals("male") || childsGender.equals("female"))) {
+			return FamilyTreeEnum.CHILD_ADDITION_FAILED.getMessageAsString();
+		}
+
+		Person child = new Person(childsName, childsGender);
+		child.setMother(familyMembers.get(mothersName));
+
+		List<Person> mothersChildren = familyMembers.get(mothersName).getChildren();
+		if(mothersChildren == null) {
+			mothersChildren = new ArrayList<Person>();
+		}
+		mothersChildren.add(child);
+
+		familyMembers.put(childsName, child);
+
+		return FamilyTreeEnum.CHILD_ADDITION_SUCCEEDED.getMessageAsString();
 	}
 }
