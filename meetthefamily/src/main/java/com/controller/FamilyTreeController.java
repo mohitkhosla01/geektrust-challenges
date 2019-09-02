@@ -12,7 +12,9 @@ import java.util.Scanner;
 import com.dto.Person;
 import com.exception.FamilyTreeException;
 import com.service.FamilyTreeAddPersonService;
+import com.service.FamilyTreeAddPersonServiceImpl;
 import com.service.FamilyTreeGetPersonService;
+import com.service.FamilyTreeGetPersonServiceImpl;
 import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeController {
@@ -25,9 +27,11 @@ public class FamilyTreeController {
 		 * KEY: Person names
 		 * VALUE: Person object references
 		 */
-
 		
-		FamilyTreeAddPersonService.constructInitialFamilyTree(familyMembers);
+		FamilyTreeAddPersonService familyTreeAddPersonService = new FamilyTreeAddPersonServiceImpl();		
+		familyTreeAddPersonService.constructInitialFamilyTree(familyMembers);
+		
+		FamilyTreeGetPersonService familyTreeGetPersonService = new FamilyTreeGetPersonServiceImpl();
 		
 		
 		Scanner sc = new Scanner(System.in);
@@ -50,7 +54,7 @@ public class FamilyTreeController {
 						String childsName = inputParameters[2];
 						String childsGender = inputParameters[3];
 
-						System.out.println(FamilyTreeAddPersonService.addChild(familyMembers, mothersName, childsName, childsGender));
+						System.out.println(familyTreeAddPersonService.addChild(familyMembers, mothersName, childsName, childsGender));
 					}
 					else {
 						System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessageAsString());
@@ -62,7 +66,7 @@ public class FamilyTreeController {
 						String person = inputParameters[1];
 						String relationship = inputParameters[2];
 						
-						List<String> relatives = FamilyTreeGetPersonService.getRelatives(familyMembers, person, relationship);
+						List<String> relatives = familyTreeGetPersonService.getRelatives(familyMembers, person, relationship);
 						
 						if(relatives.size() > 0) {
 							for(String relative : relatives) {
