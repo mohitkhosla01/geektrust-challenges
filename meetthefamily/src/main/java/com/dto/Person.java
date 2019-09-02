@@ -13,7 +13,7 @@ public class Person {
 	public Person(String name, String gender) {
 		if(gender.equalsIgnoreCase("male") || gender.equalsIgnoreCase("female")) {
 			this.name = name;
-			this.gender = gender;
+			this.gender = gender.toLowerCase();
 		}
 	}
 

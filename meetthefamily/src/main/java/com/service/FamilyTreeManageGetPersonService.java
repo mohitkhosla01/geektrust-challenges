@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.dto.Person;
-import com.utilities.FamilyTreeEnum;
 
 public abstract class FamilyTreeManageGetPersonService implements FamilyTreeGetPersonService {
 
@@ -21,7 +20,7 @@ public abstract class FamilyTreeManageGetPersonService implements FamilyTreeGetP
 			case "Son" : 			return getSons(familyMembers, personName, relationship);
 			case "Daughter" : 		return getDaughters(familyMembers, personName, relationship);
 			case "Siblings" : 		return getSiblings(familyMembers, personName, relationship);
-			default : 				return FamilyTreeEnum.INVALID_INPUT.getMessageAsList();
+			default : 				return null;
 		}
 	}
 

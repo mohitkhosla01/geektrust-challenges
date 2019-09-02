@@ -244,32 +244,22 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 	public String addChild(Map<String, Person> familyMembers, String mothersName, String childsName, String childsGender) throws FamilyTreeException {
 
-		if(familyMembers.containsKey(childsName)) {
-			return FamilyTreeEnum.CHILD_ADDITION_FAILED.getMessageAsString();
-		}
-		if(!familyMembers.containsKey(mothersName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsString();
-		}
-		if(familyMembers.containsKey(mothersName) && !familyMembers.get(mothersName).getGender().equals("female")) {
-			return FamilyTreeEnum.CHILD_ADDITION_FAILED.getMessageAsString();
-		}
+		try {
+			Person child = new Person(childsName, childsGender);
+			child.setMother(familyMembers.get(mothersName));
 
-		childsGender = childsGender.toLowerCase();
-		if(!(childsGender.equals("male") || childsGender.equals("female"))) {
-			return FamilyTreeEnum.CHILD_ADDITION_FAILED.getMessageAsString();
+			List<Person> mothersChildren = familyMembers.get(mothersName).getChildren();
+			if(mothersChildren == null) {
+				mothersChildren = new ArrayList<Person>();
+			}
+			mothersChildren.add(child);
+
+			familyMembers.put(childsName, child);
+
+			return FamilyTreeEnum.CHILD_ADDITION_SUCCEEDED.getMessage();
 		}
-
-		Person child = new Person(childsName, childsGender);
-		child.setMother(familyMembers.get(mothersName));
-
-		List<Person> mothersChildren = familyMembers.get(mothersName).getChildren();
-		if(mothersChildren == null) {
-			mothersChildren = new ArrayList<Person>();
+		catch(Exception e) {
+			throw new FamilyTreeException(FamilyTreeEnum.CHILD_ADDITION_FAILED);
 		}
-		mothersChildren.add(child);
-
-		familyMembers.put(childsName, child);
-
-		return FamilyTreeEnum.CHILD_ADDITION_SUCCEEDED.getMessageAsString();
 	}
 }

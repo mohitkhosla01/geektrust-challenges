@@ -5,31 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.dto.Person;
-import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonService {
 
 	
 	public List<String> getPaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
-
-		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
+		
 		Person mother = familyMembers.get(personName).getMother();
-		if(mother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		Person father = mother.getSpouse();
-		if(father == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		Person paternalGrandmother = father.getMother();
-		if(paternalGrandmother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
 		
 		List<String> uncleNames = new ArrayList<String>();
 		List<Person> paternalGrandmothersChildren = paternalGrandmother.getChildren();
@@ -46,19 +30,8 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 	public List<String> getMaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
 
-		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		Person mother = familyMembers.get(personName).getMother();
-		if(mother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		Person maternalGrandmother = mother.getMother();
-		if(maternalGrandmother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
 
 		List<String> uncleNames = new ArrayList<String>();
 		List<Person> maternalGrandmothersChildren = maternalGrandmother.getChildren();
@@ -75,24 +48,9 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 	public List<String> getPaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
 		
-		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		Person mother = familyMembers.get(personName).getMother();
-		if(mother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		Person father = mother.getSpouse();
-		if(father == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		Person paternalGrandmother = father.getMother();
-		if(paternalGrandmother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
 
 		List<String> auntNames = new ArrayList<String>();
 		List<Person> paternalGrandmothersChildren = paternalGrandmother.getChildren();
@@ -109,19 +67,8 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 	public List<String> getMaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
 
-		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		Person mother = familyMembers.get(personName).getMother();
-		if(mother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		Person maternalGrandmother = mother.getMother();
-		if(maternalGrandmother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
 
 		List<String> auntNames = new ArrayList<String>();
 		List<Person> maternalGrandmothersChildren = maternalGrandmother.getChildren();
@@ -137,10 +84,6 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 
 	public List<String> getSistersInLaw(Map<String, Person> familyMembers, String personName, String relationship) {	
-
-		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
 
 		List<String> sistersInLawNames = new ArrayList<String>();
 		Person person = familyMembers.get(personName);
@@ -177,11 +120,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 
 	public List<String> getBrothersInLaw(Map<String, Person> familyMembers, String personName, String relationship) {
-
-		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
+		
 		List<String> brothersInLawNames = new ArrayList<String>();
 		Person person = familyMembers.get(personName);
 
@@ -218,10 +157,6 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 	public List<String> getSons(Map<String, Person> familyMembers, String personName, String relationship) {
 
-		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		List<String> sonsNames = new ArrayList<String>();
 		Person person = familyMembers.get(personName);
 		Person mother = person.getGender().equals("female") ? person : person.getSpouse();
@@ -242,10 +177,6 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 	public List<String> getDaughters(Map<String, Person> familyMembers, String personName, String relationship) {
 
-		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
-
 		List<String> daughtersNames = new ArrayList<String>();
 		Person person = familyMembers.get(personName);
 		Person mother = person.getGender().equals("female") ? person : person.getSpouse();
@@ -265,10 +196,6 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 
 	public List<String> getSiblings(Map<String, Person> familyMembers, String personName, String relationship) {
-
-		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
-		}
 
 		List<String> siblingsNames = new ArrayList<String>();
 		Person mother = familyMembers.get(personName).getMother();
