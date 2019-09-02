@@ -10,44 +10,24 @@ import com.utilities.FamilyTreeEnum;
 public class FamilyTreeGetPersonService {
 
 	
-	public static List<String> getRelatives(Map<String, Person> familyMembers, String personName, String relationship) {
-
-		if(relationship.equals("Paternal-Uncle")) {
-			return getPaternalUncle(familyMembers, personName, relationship);
-		}
-		else if(relationship.equals("Maternal-Uncle")) {
-			return getMaternalUncle(familyMembers, personName, relationship);
-		}
-		else if(relationship.equals("Paternal-Aunt")) {
-			return getPaternalAunt(familyMembers, personName, relationship);
-		}
-		else if(relationship.equals("Maternal-Aunt")) {
-			return getMaternalAunt(familyMembers, personName, relationship);
-		}
-		else if(relationship.equals("Sister-In-Law")) {
-			return getSistersInLaw(familyMembers, personName, relationship);
-		}
-		else if(relationship.equals("Brother-In-Law")) {
-			return getBrothersInLaw(familyMembers, personName, relationship);
-		}
-		else if(relationship.equals("Son")) {
-			return getSons(familyMembers, personName, relationship);
-		}
-		else if(relationship.equals("Daughter")) {
-			return getDaughters(familyMembers, personName, relationship);
-		}
-		else if(relationship.equals("Siblings")) {
-			return getSiblings(familyMembers, personName, relationship);
-		}
-		else {
-			List<String> invalidInput = new ArrayList<String>();
-			invalidInput.add("INVALID_INPUT");
-			return invalidInput;
+	public List<String> getRelatives(Map<String, Person> familyMembers, String personName, String relationship) {
+		
+		switch(relationship) {
+			case "Paternal-Uncle" : return getPaternalUncle(familyMembers, personName, relationship);
+			case "Maternal-Uncle" : return getMaternalUncle(familyMembers, personName, relationship);
+			case "Paternal-Aunt" : 	return getPaternalAunt(familyMembers, personName, relationship);
+			case "Maternal-Aunt" : 	return getMaternalAunt(familyMembers, personName, relationship);
+			case "Sister-In-Law" : 	return getSistersInLaw(familyMembers, personName, relationship);
+			case "Brother-In-Law" : return getBrothersInLaw(familyMembers, personName, relationship);
+			case "Son" : 			return getSons(familyMembers, personName, relationship);
+			case "Daughter" : 		return getDaughters(familyMembers, personName, relationship);
+			case "Siblings" : 		return getSiblings(familyMembers, personName, relationship);
+			default : 				return FamilyTreeEnum.INVALID_INPUT.getMessageAsList();
 		}
 	}
 
 
-	public static List<String> getPaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
+	public List<String> getPaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
@@ -81,7 +61,7 @@ public class FamilyTreeGetPersonService {
 	}
 
 
-	public static List<String> getMaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
+	public List<String> getMaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
@@ -110,7 +90,7 @@ public class FamilyTreeGetPersonService {
 	}
 
 
-	public static List<String> getPaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
+	public List<String> getPaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
 		
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
@@ -144,7 +124,7 @@ public class FamilyTreeGetPersonService {
 	}
 
 
-	public static List<String> getMaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
+	public List<String> getMaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
@@ -173,7 +153,7 @@ public class FamilyTreeGetPersonService {
 	}
 
 
-	public static List<String> getSistersInLaw(Map<String, Person> familyMembers, String personName, String relationship) {	
+	public List<String> getSistersInLaw(Map<String, Person> familyMembers, String personName, String relationship) {	
 
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
@@ -213,7 +193,7 @@ public class FamilyTreeGetPersonService {
 	}
 
 
-	public static List<String> getBrothersInLaw(Map<String, Person> familyMembers, String personName, String relationship) {
+	public List<String> getBrothersInLaw(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
@@ -253,7 +233,7 @@ public class FamilyTreeGetPersonService {
 	}
 
 
-	public static List<String> getSons(Map<String, Person> familyMembers, String personName, String relationship) {
+	public List<String> getSons(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
@@ -277,7 +257,7 @@ public class FamilyTreeGetPersonService {
 	}
 
 
-	public static List<String> getDaughters(Map<String, Person> familyMembers, String personName, String relationship) {
+	public List<String> getDaughters(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();
@@ -301,7 +281,7 @@ public class FamilyTreeGetPersonService {
 	}
 
 
-	public static List<String> getSiblings(Map<String, Person> familyMembers, String personName, String relationship) {
+	public List<String> getSiblings(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessageAsList();

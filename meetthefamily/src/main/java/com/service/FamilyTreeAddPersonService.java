@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.dto.Person;
+import com.exception.FamilyTreeException;
 import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeAddPersonService {
 
-	public static void constructInitialFamilyTree(Map<String, Person> familyMembers) {
+	public void constructInitialFamilyTree(Map<String, Person> familyMembers) {
 
 		// ->-> LEVEL 1 <-<-
 		Person shan = new Person("Shan", "male");
@@ -239,9 +240,9 @@ public class FamilyTreeAddPersonService {
 		krpisChildren.add(krithi);
 		krpi.setChildren(krpisChildren);
 	}
-	
-	
-	public static String addChild(Map<String, Person> familyMembers, String mothersName, String childsName, String childsGender) {
+
+
+	public String addChild(Map<String, Person> familyMembers, String mothersName, String childsName, String childsGender) throws FamilyTreeException {
 
 		if(familyMembers.containsKey(childsName)) {
 			return FamilyTreeEnum.CHILD_ADDITION_FAILED.getMessageAsString();

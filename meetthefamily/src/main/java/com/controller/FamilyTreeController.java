@@ -10,8 +10,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.dto.Person;
+import com.exception.FamilyTreeException;
 import com.service.FamilyTreeAddPersonService;
 import com.service.FamilyTreeGetPersonService;
+import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeController {
 
@@ -41,7 +43,7 @@ public class FamilyTreeController {
 		       
 				String[] inputParameters = line.split(" ");
 
-				if(inputParameters[0].equals("ADD_CHILD")) {
+				if(inputParameters[0].equals(FamilyTreeEnum.ADD_CHILD.getMessageAsString())) {
 
 					if(inputParameters.length == 4) {
 						String mothersName = inputParameters[1];
@@ -51,10 +53,10 @@ public class FamilyTreeController {
 						System.out.println(FamilyTreeAddPersonService.addChild(familyMembers, mothersName, childsName, childsGender));
 					}
 					else {
-						System.out.println("INVALID_INPUT");
+						System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessageAsString());
 					}
 				}
-				else if(inputParameters[0].equals("GET_RELATIONSHIP")) {
+				else if(inputParameters[0].equals(FamilyTreeEnum.GET_RELATIONSHIP.getMessageAsString())) {
 
 					if(inputParameters.length == 3) {
 						String person = inputParameters[1];
@@ -69,15 +71,15 @@ public class FamilyTreeController {
 							System.out.println();
 						}
 						else {
-							System.out.println("NONE");
+							System.out.println(FamilyTreeEnum.NONE.getMessageAsString());
 						}
 					}
 					else {
-						System.out.println("INVALID_INPUT");
+						System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessageAsString());
 					}
 				}
 				else {
-					System.out.println("INVALID_INPUT");
+					System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessageAsString());
 				}
 		    }
 		    
@@ -89,6 +91,13 @@ public class FamilyTreeController {
 		catch(IOException ioe) {
 			System.out.println("IOException occured!");
 			ioe.printStackTrace();
+		}
+		catch(FamilyTreeException fte) {
+			System.out.println(fte.getFamilyTreeEnum().getMessageAsString());
+		}
+		catch(Exception e) {
+			System.out.println("Exception occured!");
+			e.printStackTrace();
 		}
 		
 		sc.close();
