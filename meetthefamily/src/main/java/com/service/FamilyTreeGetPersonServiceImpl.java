@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.dto.Person;
+import com.utilities.FamilyTreeConstants;
 
 public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonService {
 
@@ -19,7 +20,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		List<Person> paternalGrandmothersChildren = paternalGrandmother.getChildren();
 
 		for(Person paternalGrandmothersChild : paternalGrandmothersChildren) {
-			if(!paternalGrandmothersChild.getName().equals(father.getName()) && paternalGrandmothersChild.getGender().equals("male")) {
+			if(!paternalGrandmothersChild.getName().equals(father.getName()) && paternalGrandmothersChild.getGender().equals(FamilyTreeConstants.MALE)) {
 				uncleNames.add(paternalGrandmothersChild.getName());
 			}
 		}
@@ -37,7 +38,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		List<Person> maternalGrandmothersChildren = maternalGrandmother.getChildren();
 
 		for(Person maternalGrandmothersChild : maternalGrandmothersChildren) {
-			if(maternalGrandmothersChild.getGender().equals("male")) {
+			if(maternalGrandmothersChild.getGender().equals(FamilyTreeConstants.MALE)) {
 				uncleNames.add(maternalGrandmothersChild.getName());
 			}
 		}
@@ -56,7 +57,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		List<Person> paternalGrandmothersChildren = paternalGrandmother.getChildren();
 
 		for(Person paternalGrandmothersChild : paternalGrandmothersChildren) {
-			if(paternalGrandmothersChild.getGender().equals("female")) {
+			if(paternalGrandmothersChild.getGender().equals(FamilyTreeConstants.FEMALE)) {
 				auntNames.add(paternalGrandmothersChild.getName());
 			}
 		}
@@ -74,7 +75,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		List<Person> maternalGrandmothersChildren = maternalGrandmother.getChildren();
 
 		for(Person maternalGrandmothersChild : maternalGrandmothersChildren) {
-			if(!maternalGrandmothersChild.getName().equals(mother.getName()) && maternalGrandmothersChild.getGender().equals("female")) {
+			if(!maternalGrandmothersChild.getName().equals(mother.getName()) && maternalGrandmothersChild.getGender().equals(FamilyTreeConstants.FEMALE)) {
 				auntNames.add(maternalGrandmothersChild.getName());
 			}
 		}
@@ -97,7 +98,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 				List<Person> spousesMothersChildren = spousesMother.getChildren();
 
 				for(Person spousesMothersChild : spousesMothersChildren) {
-					if(!spousesMothersChild.getName().equals(person.getSpouse().getName()) && spousesMothersChild.getGender().equals("female")) {
+					if(!spousesMothersChild.getName().equals(person.getSpouse().getName()) && spousesMothersChild.getGender().equals(FamilyTreeConstants.FEMALE)) {
 						sistersInLawNames.add(spousesMothersChild.getName());
 					}
 				}
@@ -109,7 +110,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 			List<Person> mothersChildren = mother.getChildren();
 
 			for(Person mothersChild : mothersChildren) {
-				if(!mothersChild.getName().equals(person.getName()) && mothersChild.getGender().equals("male") && mothersChild.getSpouse() != null) {
+				if(!mothersChild.getName().equals(person.getName()) && mothersChild.getGender().equals(FamilyTreeConstants.MALE) && mothersChild.getSpouse() != null) {
 					sistersInLawNames.add(mothersChild.getSpouse().getName());
 				}
 			}
@@ -133,7 +134,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 				List<Person> spousesMothersChildren = spousesMother.getChildren();
 
 				for(Person spousesMothersChild : spousesMothersChildren) {
-					if(!spousesMothersChild.getName().equals(person.getSpouse().getName()) && spousesMothersChild.getGender().equals("male")) {
+					if(!spousesMothersChild.getName().equals(person.getSpouse().getName()) && spousesMothersChild.getGender().equals(FamilyTreeConstants.MALE)) {
 						brothersInLawNames.add(spousesMothersChild.getName());
 					}
 				}
@@ -145,7 +146,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 			List<Person> mothersChildren = mother.getChildren();
 
 			for(Person mothersChild : mothersChildren) {
-				if(!mothersChild.getName().equals(person.getName()) && mothersChild.getGender().equals("female") && mothersChild.getSpouse() != null) {
+				if(!mothersChild.getName().equals(person.getName()) && mothersChild.getGender().equals(FamilyTreeConstants.FEMALE) && mothersChild.getSpouse() != null) {
 					brothersInLawNames.add(mothersChild.getSpouse().getName());
 				}
 			}
@@ -159,13 +160,13 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 		List<String> sonsNames = new ArrayList<String>();
 		Person person = familyMembers.get(personName);
-		Person mother = person.getGender().equals("female") ? person : person.getSpouse();
+		Person mother = person.getGender().equals(FamilyTreeConstants.FEMALE) ? person : person.getSpouse();
 		if(mother != null) {
 
 			List<Person> children = mother.getChildren();
 
 			for(Person child : children) {
-				if(child.getGender().equals("male")) {
+				if(child.getGender().equals(FamilyTreeConstants.MALE)) {
 					sonsNames.add(child.getName());
 				}
 			}
@@ -179,13 +180,13 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 
 		List<String> daughtersNames = new ArrayList<String>();
 		Person person = familyMembers.get(personName);
-		Person mother = person.getGender().equals("female") ? person : person.getSpouse();
+		Person mother = person.getGender().equals(FamilyTreeConstants.FEMALE) ? person : person.getSpouse();
 		if(mother != null) {
 
 			List<Person> children = mother.getChildren();
 
 			for(Person child : children) {
-				if(child.getGender().equals("female")) {
+				if(child.getGender().equals(FamilyTreeConstants.FEMALE)) {
 					daughtersNames.add(child.getName());
 				}
 			}

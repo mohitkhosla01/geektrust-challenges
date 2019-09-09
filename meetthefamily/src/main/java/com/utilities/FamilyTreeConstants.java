@@ -2,6 +2,9 @@ package com.utilities;
 
 public final class FamilyTreeConstants {
 	
+	public static final String MALE = "male";
+	public static final String FEMALE = "female";
+	
 	public static final String ADD_CHILD = "ADD_CHILD";
 	public static final String GET_RELATIONSHIP = "GET_RELATIONSHIP";
 	
