@@ -8,7 +8,6 @@ import com.utilities.FamilyTreeEnum;
 
 public abstract class FamilyTreeManageValidateGetPersonService implements FamilyTreeValidateGetPersonService {
 
-	
 	public String validateGetRelatives(Map<String, Person> familyMembers, String personName, String relationship) {
 		
 		switch(relationship) {

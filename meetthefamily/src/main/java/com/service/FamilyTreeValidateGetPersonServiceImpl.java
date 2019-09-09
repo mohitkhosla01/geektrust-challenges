@@ -7,7 +7,7 @@ import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeValidateGetPersonServiceImpl extends FamilyTreeManageValidateGetPersonService {
 	
-	
+	// Function to determine if paternal uncles of a family member can be obtained based on given input parameters.
 	public String validateGetPaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
@@ -32,7 +32,7 @@ public class FamilyTreeValidateGetPersonServiceImpl extends FamilyTreeManageVali
 		return FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage();
 	}
 
-
+	// Function to determine if maternal uncles of a family member can be obtained based on given input parameters.
 	public String validateGetMaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
@@ -52,7 +52,7 @@ public class FamilyTreeValidateGetPersonServiceImpl extends FamilyTreeManageVali
 		return FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage();
 	}
 
-
+	// Function to determine if paternal aunts of a family member can be obtained based on given input parameters.
 	public String validateGetPaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
 		
 		if(!familyMembers.containsKey(personName)) {
@@ -77,7 +77,7 @@ public class FamilyTreeValidateGetPersonServiceImpl extends FamilyTreeManageVali
 		return FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage();
 	}
 
-
+	// Function to determine if maternal aunts of a family member can be obtained based on given input parameters.
 	public String validateGetMaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
@@ -97,8 +97,8 @@ public class FamilyTreeValidateGetPersonServiceImpl extends FamilyTreeManageVali
 		return FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage();
 	}
 
-
-	public String validateGetPerson(Map<String, Person> familyMembers, String personName, String relationship) {	
+	// Function to determine if 'familyMembers' data structure contains a particular person.
+	public String validateGetPerson(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
 			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();

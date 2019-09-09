@@ -6,15 +6,20 @@ import java.util.Map;
 
 import com.dto.Person;
 import com.exception.FamilyTreeException;
+import com.utilities.FamilyTreeConstants;
 import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonService {
 
+	/* 
+	 * Function to add all family members of the Shan family to the 'familyMembers' data structure.
+	 * Details of these family members are predefined.
+	 */
 	public void constructInitialFamilyTree(Map<String, Person> familyMembers) {
 
 		// ->-> LEVEL 1 <-<-
-		Person shan = new Person("Shan", "male");
-		Person anga = new Person("Anga", "female");
+		Person shan = new Person("Shan", FamilyTreeConstants.MALE, null);
+		Person anga = new Person("Anga", FamilyTreeConstants.FEMALE, null);
 
 		shan.setSpouse(anga);
 		anga.setSpouse(shan);
@@ -24,48 +29,44 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// ->-> LEVEL 2 <-<-
-		Person chit = new Person("Chit", "male");
-		Person amba = new Person("Amba", "female");
+		Person chit = new Person("Chit", FamilyTreeConstants.MALE, anga);
+		Person amba = new Person("Amba", FamilyTreeConstants.FEMALE, null);
 
 		chit.setSpouse(amba);
-		chit.setMother(anga);
 		amba.setSpouse(chit);
 
 		familyMembers.put("Chit", chit);
 		familyMembers.put("Amba", amba);
 
 
-		Person ish = new Person("Ish", "male");
+		Person ish = new Person("Ish", FamilyTreeConstants.MALE, anga);
 		familyMembers.put("Ish", ish);
 
 
-		Person vich = new Person("Vich", "male");
-		Person lika = new Person("Lika", "female");
+		Person vich = new Person("Vich", FamilyTreeConstants.MALE, anga);
+		Person lika = new Person("Lika", FamilyTreeConstants.FEMALE, null);
 
 		vich.setSpouse(lika);
-		vich.setMother(anga);
 		lika.setSpouse(vich);
 
 		familyMembers.put("Vich", vich);
 		familyMembers.put("Lika", lika);
 
 
-		Person aras = new Person("Aras", "male");
-		Person chitra = new Person("Chitra", "female");
+		Person aras = new Person("Aras", FamilyTreeConstants.MALE, anga);
+		Person chitra = new Person("Chitra", FamilyTreeConstants.FEMALE, null);
 
 		aras.setSpouse(chitra);
-		aras.setMother(anga);
 		chitra.setSpouse(aras);
 
 		familyMembers.put("Aras", aras);
 		familyMembers.put("Chitra", chitra);
 
 
-		Person satya = new Person("Satya", "female");
-		Person vyan = new Person("Vyan", "male");
+		Person satya = new Person("Satya", FamilyTreeConstants.FEMALE, anga);
+		Person vyan = new Person("Vyan", FamilyTreeConstants.MALE, null);
 
 		satya.setSpouse(vyan);
-		satya.setMother(anga);
 		vyan.setSpouse(satya);
 
 		familyMembers.put("Satya", satya);
@@ -84,23 +85,20 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		// ->-> LEVEL 3 <-<-
 
 		// -> SEGMENT 1 <-
-		Person dritha = new Person("Dritha", "female");
-		Person jaya = new Person("Jaya", "male");
+		Person dritha = new Person("Dritha", FamilyTreeConstants.FEMALE, amba);
+		Person jaya = new Person("Jaya", FamilyTreeConstants.MALE, null);
 
 		dritha.setSpouse(jaya);
-		dritha.setMother(amba);
 		jaya.setSpouse(dritha);
 
 		familyMembers.put("Dritha", dritha);
 		familyMembers.put("Jaya", jaya);
 
 
-		Person tritha = new Person("Tritha", "female");
-		tritha.setMother(amba);
+		Person tritha = new Person("Tritha", FamilyTreeConstants.FEMALE, amba);
 		familyMembers.put("Tritha", tritha);
 
-		Person vritha = new Person("Vritha", "male");
-		vritha.setMother(amba);
+		Person vritha = new Person("Vritha", FamilyTreeConstants.MALE, amba);
 		familyMembers.put("Vritha", vritha);
 
 
@@ -112,12 +110,10 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 2 <-
-		Person vila = new Person("Vila", "female");
-		vila.setMother(lika);
+		Person vila = new Person("Vila", FamilyTreeConstants.FEMALE, lika);
 		familyMembers.put("Vila", vila);
 
-		Person chika = new Person("Chika", "female");
-		chika.setMother(lika);
+		Person chika = new Person("Chika", FamilyTreeConstants.FEMALE, lika);
 		familyMembers.put("Chika", chika);
 
 
@@ -128,19 +124,17 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 3 <-
-		Person arit = new Person("Arit", "male");
-		Person jnki = new Person("Jnki", "female");
+		Person arit = new Person("Arit", FamilyTreeConstants.MALE, null);
+		Person jnki = new Person("Jnki", FamilyTreeConstants.FEMALE, chitra);
 
 		arit.setSpouse(jnki);
 		jnki.setSpouse(arit);
-		jnki.setMother(chitra);
 
 		familyMembers.put("Arit", arit);
 		familyMembers.put("Jnki", jnki);
 
 
-		Person ahit = new Person("Ahit", "male");
-		ahit.setMother(chitra);
+		Person ahit = new Person("Ahit", FamilyTreeConstants.MALE, chitra);
 		familyMembers.put("Ahit", ahit);
 
 
@@ -151,30 +145,27 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 4 <-
-		Person satvy = new Person("Satvy", "female");
-		Person asva = new Person("Asva", "male");
+		Person satvy = new Person("Satvy", FamilyTreeConstants.FEMALE, null);
+		Person asva = new Person("Asva", FamilyTreeConstants.MALE, satya);
 
 		satvy.setSpouse(asva);
 		asva.setSpouse(satvy);
-		asva.setMother(satya);
 
 		familyMembers.put("Satvy", satvy);
 		familyMembers.put("Asva", asva);
 
 
-		Person krpi = new Person("Krpi", "female");
-		Person vyas = new Person("Vyas", "male");
+		Person krpi = new Person("Krpi", FamilyTreeConstants.FEMALE, null);
+		Person vyas = new Person("Vyas", FamilyTreeConstants.MALE, satya);
 
 		krpi.setSpouse(vyas);
 		vyas.setSpouse(krpi);
-		vyas.setMother(satya);
 
 		familyMembers.put("Krpi", krpi);
 		familyMembers.put("Vyas", vyas);
 
 
-		Person atya = new Person("Atya", "female");
-		atya.setMother(satya);
+		Person atya = new Person("Atya", FamilyTreeConstants.FEMALE, satya);
 		familyMembers.put("Atya", atya);
 
 
@@ -188,8 +179,7 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		// ->-> LEVEL 4 <-<-
 
 		// -> SEGMENT 1 <-
-		Person yodhan = new Person("Yodhan", "male");
-		yodhan.setMother(dritha);
+		Person yodhan = new Person("Yodhan", FamilyTreeConstants.MALE, dritha);
 		familyMembers.put("Yodhan", yodhan);
 
 
@@ -199,12 +189,10 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 2 <-
-		Person laki = new Person("Laki", "male");
-		laki.setMother(jnki);
+		Person laki = new Person("Laki", FamilyTreeConstants.MALE, jnki);
 		familyMembers.put("Laki", laki);
 
-		Person lavnya = new Person("Lavnya", "female");
-		lavnya.setMother(jnki);
+		Person lavnya = new Person("Lavnya", FamilyTreeConstants.FEMALE, jnki);
 		familyMembers.put("Lavnya", lavnya);
 
 
@@ -215,8 +203,7 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 3 <-
-		Person vasa = new Person("Vasa", "male");
-		vasa.setMother(satvy);
+		Person vasa = new Person("Vasa", FamilyTreeConstants.MALE, satvy);
 		familyMembers.put("Vasa", vasa);
 
 
@@ -226,12 +213,10 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 4 <-
-		Person kriya = new Person("Kriya", "male");
-		kriya.setMother(krpi);
+		Person kriya = new Person("Kriya", FamilyTreeConstants.MALE, krpi);
 		familyMembers.put("Kriya", kriya);
 
-		Person krithi = new Person("Krithi", "female");
-		krithi.setMother(krpi);
+		Person krithi = new Person("Krithi", FamilyTreeConstants.FEMALE, krpi);
 		familyMembers.put("Krithi", krithi);
 
 
@@ -241,12 +226,14 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		krpi.setChildren(krpisChildren);
 	}
 
-
+	/*
+	 *  Function to add a new member to the 'familyMembers' data structure.
+	 *  Details of the new family member are received as input from the end user.
+	 */
 	public String addChild(Map<String, Person> familyMembers, String mothersName, String childsName, String childsGender) throws FamilyTreeException {
 
 		try {
-			Person child = new Person(childsName, childsGender);
-			child.setMother(familyMembers.get(mothersName));
+			Person child = new Person(childsName, childsGender, familyMembers.get(mothersName));
 
 			List<Person> mothersChildren = familyMembers.get(mothersName).getChildren();
 			if(mothersChildren == null) {

@@ -9,7 +9,7 @@ import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeValidateAddPersonServiceImpl implements FamilyTreeValidateAddPersonService {
 
-
+	// Function to determine if a new child can be added to the 'familyMembers' data structure based on input parameters.
 	public String validateAddChild(Map<String, Person> familyMembers, String mothersName, String childsName, String childsGender) throws FamilyTreeException {
 
 		if(familyMembers.containsKey(childsName)) {

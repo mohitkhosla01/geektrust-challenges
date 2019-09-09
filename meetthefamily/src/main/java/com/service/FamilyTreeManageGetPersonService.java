@@ -8,7 +8,6 @@ import com.utilities.FamilyTreeConstants;
 
 public abstract class FamilyTreeManageGetPersonService implements FamilyTreeGetPersonService {
 
-	
 	public List<String> getRelatives(Map<String, Person> familyMembers, String personName, String relationship) {
 		
 		switch(relationship) {

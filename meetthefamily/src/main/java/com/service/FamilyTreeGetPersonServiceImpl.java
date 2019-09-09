@@ -9,7 +9,7 @@ import com.utilities.FamilyTreeConstants;
 
 public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonService {
 
-	
+	// Function to get all paternal uncles of a single family member.
 	public List<String> getPaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
 		
 		Person mother = familyMembers.get(personName).getMother();
@@ -28,7 +28,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		return uncleNames;
 	}
 
-
+	// Function to get all maternal uncles of a single family member.
 	public List<String> getMaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		Person mother = familyMembers.get(personName).getMother();
@@ -46,7 +46,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		return uncleNames;
 	}
 
-
+	// Function to get all paternal aunts of a single family member.
 	public List<String> getPaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
 		
 		Person mother = familyMembers.get(personName).getMother();
@@ -65,7 +65,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		return auntNames;
 	}
 
-
+	// Function to get all maternal aunts of a single family member.
 	public List<String> getMaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		Person mother = familyMembers.get(personName).getMother();
@@ -83,8 +83,8 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		return auntNames;
 	}
 
-
-	public List<String> getSistersInLaw(Map<String, Person> familyMembers, String personName, String relationship) {	
+	// Function to get all sisters-in-law of a single family member.
+	public List<String> getSistersInLaw(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		List<String> sistersInLawNames = new ArrayList<String>();
 		Person person = familyMembers.get(personName);
@@ -119,7 +119,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		return sistersInLawNames;
 	}
 
-
+	// Function to get all brothers-in-law of a single family member.
 	public List<String> getBrothersInLaw(Map<String, Person> familyMembers, String personName, String relationship) {
 		
 		List<String> brothersInLawNames = new ArrayList<String>();
@@ -155,7 +155,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		return brothersInLawNames;
 	}
 
-
+	// Function to get sons of a single family member.
 	public List<String> getSons(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		List<String> sonsNames = new ArrayList<String>();
@@ -175,7 +175,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		return sonsNames;
 	}
 
-
+	// Function to get daughters of a single family member.
 	public List<String> getDaughters(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		List<String> daughtersNames = new ArrayList<String>();
@@ -195,7 +195,7 @@ public class FamilyTreeGetPersonServiceImpl extends FamilyTreeManageGetPersonSer
 		return daughtersNames;
 	}
 
-
+	// Function to get siblings of a single family member.
 	public List<String> getSiblings(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		List<String> siblingsNames = new ArrayList<String>();
