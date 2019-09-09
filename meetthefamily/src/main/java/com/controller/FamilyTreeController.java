@@ -19,95 +19,59 @@ import com.service.FamilyTreeValidateAddPersonService;
 import com.service.FamilyTreeValidateAddPersonServiceImpl;
 import com.service.FamilyTreeValidateGetPersonService;
 import com.service.FamilyTreeValidateGetPersonServiceImpl;
+import com.utilities.FamilyTreeConstants;
 import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeController {
 
 	public static void main(String[] args) {
-		
+
 		Map<String, Person> familyMembers = new HashMap<String, Person>();
 		/* 
 		 * 'familyMembers' collection stores a map of Person object references for quick lookup.
 		 * KEY: Person names
 		 * VALUE: Person object references
 		 */
-		
-		FamilyTreeAddPersonService familyTreeAddPersonService = new FamilyTreeAddPersonServiceImpl();		
-		familyTreeAddPersonService.constructInitialFamilyTree(familyMembers);
-		
-		FamilyTreeGetPersonService familyTreeGetPersonService = new FamilyTreeGetPersonServiceImpl();
-		
+
+		FamilyTreeController familyTreeController = new FamilyTreeController();
+
 		FamilyTreeValidateAddPersonService familyTreeValidateAddPersonService = new FamilyTreeValidateAddPersonServiceImpl();
 		FamilyTreeValidateGetPersonService familyTreeValidateGetPersonService = new FamilyTreeValidateGetPersonServiceImpl();
-		
-		
+
+		FamilyTreeAddPersonService familyTreeAddPersonService = new FamilyTreeAddPersonServiceImpl();		
+		familyTreeAddPersonService.constructInitialFamilyTree(familyMembers);
+
+		FamilyTreeGetPersonService familyTreeGetPersonService = new FamilyTreeGetPersonServiceImpl();
+
+
 		System.out.println("-> -> ->  Welcome to 'Meet the Family' Geektrust backend challenge  <- <- <-");
 		System.out.print("Enter the input file path: ");
 		Scanner sc = new Scanner(System.in);
 		String fileSource = sc.nextLine();
-		
+
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileSource));
-		    
+
 			String line;
-		    while ((line = br.readLine()) != null) {
-		       
+			while ((line = br.readLine()) != null) {
+
 				String[] inputParameters = line.split(" ");
 
-				if(inputParameters[0].equals(FamilyTreeEnum.ADD_CHILD.getMessage())) {
+				String operationName = inputParameters[0];
 
-					if(inputParameters.length == 4) {
-						String mothersName = inputParameters[1];
-						String childsName = inputParameters[2];
-						String childsGender = inputParameters[3];
-
-						String addChildValidationResult = familyTreeValidateAddPersonService.validateAddChild(familyMembers, mothersName, childsName, childsGender);
-						if(addChildValidationResult.equals(FamilyTreeEnum.ADD_PERSON_POSSIBLE.getMessage())) {
-							System.out.println(familyTreeAddPersonService.addChild(familyMembers, mothersName, childsName, childsGender));
-						}
-						else {
-							System.out.println(addChildValidationResult);
-						}
-					}
-					else {
+				switch(operationName) {
+					case FamilyTreeConstants.ADD_CHILD : 
+						familyTreeController.callAddChild(familyTreeValidateAddPersonService, familyTreeAddPersonService, inputParameters, familyMembers);
+						break;
+					case FamilyTreeConstants.GET_RELATIONSHIP : 
+						familyTreeController.callGetRelatives(familyTreeValidateGetPersonService, familyTreeGetPersonService, inputParameters, familyMembers);
+						break;
+					default : 
 						System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessage());
-					}
 				}
-				else if(inputParameters[0].equals(FamilyTreeEnum.GET_RELATIONSHIP.getMessage())) {
+			}
 
-					if(inputParameters.length == 3) {
-						String person = inputParameters[1];
-						String relationship = inputParameters[2];
-						
-						String getChildValidationResult = familyTreeValidateGetPersonService.validateGetRelatives(familyMembers, person, relationship);
-						if(getChildValidationResult.equals(FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage())) {
-							
-							List<String> relatives = familyTreeGetPersonService.getRelatives(familyMembers, person, relationship);
-							
-							if(relatives.size() > 0) {
-								for(String relative : relatives) {
-									System.out.print(relative + " ");
-								}
-								System.out.println();
-							}
-							else {
-								System.out.println(FamilyTreeEnum.NONE.getMessage());
-							}
-						}
-						else {
-							System.out.println(getChildValidationResult);
-						}
-					}
-					else {
-						System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessage());
-					}
-				}
-				else {
-					System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessage());
-				}
-		    }
-		    
-		    br.close();
+			br.close();
 		} 
 		catch(FileNotFoundException fne) {
 			System.out.println("No file found at location: " + fileSource);
@@ -127,7 +91,59 @@ public class FamilyTreeController {
 			System.out.println("Exception occured!");
 			e.printStackTrace();
 		}
-		
+
 		sc.close();
+	}
+
+	public void callAddChild(FamilyTreeValidateAddPersonService familyTreeValidateAddPersonService, FamilyTreeAddPersonService familyTreeAddPersonService, 
+			String[] inputParameters, Map<String, Person> familyMembers) throws FamilyTreeException {
+
+		if(inputParameters.length == 4) {
+			String mothersName = inputParameters[1];
+			String childsName = inputParameters[2];
+			String childsGender = inputParameters[3];
+
+			String addChildValidationResult = familyTreeValidateAddPersonService.validateAddChild(familyMembers, mothersName, childsName, childsGender);
+			if(addChildValidationResult.equals(FamilyTreeEnum.ADD_PERSON_POSSIBLE.getMessage())) {
+				System.out.println(familyTreeAddPersonService.addChild(familyMembers, mothersName, childsName, childsGender));
+			}
+			else {
+				System.out.println(addChildValidationResult);
+			}
+		}
+		else {
+			System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessage());
+		}
+	}
+
+	public void callGetRelatives(FamilyTreeValidateGetPersonService familyTreeValidateGetPersonService, FamilyTreeGetPersonService familyTreeGetPersonService, 
+			String[] inputParameters, Map<String, Person> familyMembers) throws FamilyTreeException {
+
+		if(inputParameters.length == 3) {
+			String person = inputParameters[1];
+			String relationship = inputParameters[2];
+
+			String getChildValidationResult = familyTreeValidateGetPersonService.validateGetRelatives(familyMembers, person, relationship);
+			if(getChildValidationResult.equals(FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage())) {
+
+				List<String> relatives = familyTreeGetPersonService.getRelatives(familyMembers, person, relationship);
+
+				if(relatives.size() > 0) {
+					for(String relative : relatives) {
+						System.out.print(relative + " ");
+					}
+					System.out.println();
+				}
+				else {
+					System.out.println(FamilyTreeEnum.NONE.getMessage());
+				}
+			}
+			else {
+				System.out.println(getChildValidationResult);
+			}
+		}
+		else {
+			System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessage());
+		}
 	}
 }

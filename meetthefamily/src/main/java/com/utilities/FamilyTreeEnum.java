@@ -2,8 +2,6 @@ package com.utilities;
 
 public enum FamilyTreeEnum {
 	
-	ADD_CHILD("ADD_CHILD"),
-	GET_RELATIONSHIP("GET_RELATIONSHIP"),
 	NONE("NONE"),
 	PERSON_NOT_FOUND("PERSON_NOT_FOUND"),
 	INVALID_INPUT("INVALID_INPUT"),

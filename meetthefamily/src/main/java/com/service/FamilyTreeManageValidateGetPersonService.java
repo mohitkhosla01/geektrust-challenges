@@ -3,6 +3,7 @@ package com.service;
 import java.util.Map;
 
 import com.dto.Person;
+import com.utilities.FamilyTreeConstants;
 import com.utilities.FamilyTreeEnum;
 
 public abstract class FamilyTreeManageValidateGetPersonService implements FamilyTreeValidateGetPersonService {
@@ -11,16 +12,16 @@ public abstract class FamilyTreeManageValidateGetPersonService implements Family
 	public String validateGetRelatives(Map<String, Person> familyMembers, String personName, String relationship) {
 		
 		switch(relationship) {
-			case "Paternal-Uncle" : return validateGetPaternalUncle(familyMembers, personName, relationship);
-			case "Maternal-Uncle" : return validateGetMaternalUncle(familyMembers, personName, relationship);
-			case "Paternal-Aunt" : 	return validateGetPaternalAunt(familyMembers, personName, relationship);
-			case "Maternal-Aunt" : 	return validateGetMaternalAunt(familyMembers, personName, relationship);
-			case "Sister-In-Law" : 	return validateGetPerson(familyMembers, personName, relationship);
-			case "Brother-In-Law" : return validateGetPerson(familyMembers, personName, relationship);
-			case "Son" : 			return validateGetPerson(familyMembers, personName, relationship);
-			case "Daughter" : 		return validateGetPerson(familyMembers, personName, relationship);
-			case "Siblings" : 		return validateGetPerson(familyMembers, personName, relationship);
-			default : 				return FamilyTreeEnum.INVALID_INPUT.getMessage();
+			case FamilyTreeConstants.PATERNAL_UNCLE : 	return validateGetPaternalUncle(familyMembers, personName, relationship);
+			case FamilyTreeConstants.MATERNAL_UNCLE : 	return validateGetMaternalUncle(familyMembers, personName, relationship);
+			case FamilyTreeConstants.PATERNAL_AUNT : 	return validateGetPaternalAunt(familyMembers, personName, relationship);
+			case FamilyTreeConstants.MATERNAL_AUNT : 	return validateGetMaternalAunt(familyMembers, personName, relationship);
+			case FamilyTreeConstants.SISTER_IN_LAW : 	return validateGetPerson(familyMembers, personName, relationship);
+			case FamilyTreeConstants.BROTHER_IN_LAW : 	return validateGetPerson(familyMembers, personName, relationship);
+			case FamilyTreeConstants.SON : 				return validateGetPerson(familyMembers, personName, relationship);
+			case FamilyTreeConstants.DAUGHTER : 		return validateGetPerson(familyMembers, personName, relationship);
+			case FamilyTreeConstants.SIBLINGS : 		return validateGetPerson(familyMembers, personName, relationship);
+			default : 									return FamilyTreeEnum.INVALID_INPUT.getMessage();
 		}
 	}
 
