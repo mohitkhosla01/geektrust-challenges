@@ -56,19 +56,20 @@ public class FamilyTreeController {
 			while ((line = br.readLine()) != null) {
 
 				String[] inputParameters = line.split(" ");
-
-				String operationName = inputParameters[0];
+				String operationName = inputParameters[0], operationResponse = null;
 
 				switch(operationName) {
 					case FamilyTreeConstants.ADD_CHILD : 
-						controllerObject.callAddChild(validateAddPersonServiceObject, addPersonServiceObject, inputParameters, familyMembers);
+						operationResponse = controllerObject.callAddChild(validateAddPersonServiceObject, addPersonServiceObject, inputParameters, familyMembers);
 						break;
 					case FamilyTreeConstants.GET_RELATIONSHIP : 
-						controllerObject.callGetRelatives(validateGetPersonServiceObject, getPersonServiceObject, inputParameters, familyMembers);
+						operationResponse = controllerObject.callGetRelatives(validateGetPersonServiceObject, getPersonServiceObject, inputParameters, familyMembers);
 						break;
 					default : 
-						System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessage());
+						operationResponse = FamilyTreeEnum.INVALID_INPUT.getMessage();
 				}
+				
+				System.out.println(operationResponse);
 			}
 
 			br.close();
@@ -102,7 +103,7 @@ public class FamilyTreeController {
 	 * FamilyTreeValidateAddPersonService.validateAddChild() is initially called to validate input parameters.
 	 * Once input parameters are successfully validated, FamilyTreeAddPersonService.addChild() is called to add the new member.
 	 */
-	public void callAddChild(FamilyTreeValidateAddPersonService validateAddPersonServiceObject, FamilyTreeAddPersonService addPersonServiceObject, 
+	public String callAddChild(FamilyTreeValidateAddPersonService validateAddPersonServiceObject, FamilyTreeAddPersonService addPersonServiceObject, 
 			String[] inputParameters, Map<String, Person> familyMembers) throws FamilyTreeException {
 
 		if(inputParameters.length == 4) {
@@ -112,14 +113,14 @@ public class FamilyTreeController {
 
 			String addChildValidationResult = validateAddPersonServiceObject.validateAddChild(familyMembers, mothersName, childsName, childsGender);
 			if(addChildValidationResult.equals(FamilyTreeEnum.ADD_PERSON_POSSIBLE.getMessage())) {
-				System.out.println(addPersonServiceObject.addChild(familyMembers, mothersName, childsName, childsGender));
+				return addPersonServiceObject.addChild(familyMembers, mothersName, childsName, childsGender);
 			}
 			else {
-				System.out.println(addChildValidationResult);
+				return addChildValidationResult;
 			}
 		}
 		else {
-			System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessage());
+			return FamilyTreeEnum.INVALID_INPUT.getMessage();
 		}
 	}
 
@@ -130,7 +131,7 @@ public class FamilyTreeController {
 	 * FamilyTreeValidateGetPersonService.validateGetRelatives() is initially called to validate input parameters.
 	 * Once input parameters are successfully validated, FamilyTreeGetPersonService.getRelatives() is called to obtain the list of relatives.
 	 */
-	public void callGetRelatives(FamilyTreeValidateGetPersonService validateGetPersonServiceObject, FamilyTreeGetPersonService getPersonServiceObject, 
+	public String callGetRelatives(FamilyTreeValidateGetPersonService validateGetPersonServiceObject, FamilyTreeGetPersonService getPersonServiceObject, 
 			String[] inputParameters, Map<String, Person> familyMembers) throws FamilyTreeException {
 
 		if(inputParameters.length == 3) {
@@ -143,21 +144,24 @@ public class FamilyTreeController {
 				List<String> relatives = getPersonServiceObject.getRelatives(familyMembers, person, relationship);
 
 				if(relatives.size() > 0) {
+					StringBuilder relativeNames = new StringBuilder();
+					
 					for(String relative : relatives) {
-						System.out.print(relative + " ");
+						relativeNames.append(relative);
+						relativeNames.append(" ");
 					}
-					System.out.println();
+					return relativeNames.toString().trim();
 				}
 				else {
-					System.out.println(FamilyTreeEnum.NONE.getMessage());
+					return FamilyTreeEnum.NONE.getMessage();
 				}
 			}
 			else {
-				System.out.println(getChildValidationResult);
+				return getChildValidationResult;
 			}
 		}
 		else {
-			System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessage());
+			return FamilyTreeEnum.INVALID_INPUT.getMessage();
 		}
 	}
 }
