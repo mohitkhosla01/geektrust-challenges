@@ -33,15 +33,15 @@ public class FamilyTreeController {
 		 * VALUE: Person object references
 		 */
 
-		FamilyTreeController familyTreeController = new FamilyTreeController();
+		FamilyTreeController controllerObject = new FamilyTreeController();
 
-		FamilyTreeValidateAddPersonService familyTreeValidateAddPersonService = new FamilyTreeValidateAddPersonServiceImpl();
-		FamilyTreeValidateGetPersonService familyTreeValidateGetPersonService = new FamilyTreeValidateGetPersonServiceImpl();
+		FamilyTreeValidateAddPersonService validateAddPersonServiceObject = new FamilyTreeValidateAddPersonServiceImpl();
+		FamilyTreeValidateGetPersonService validateGetPersonServiceObject = new FamilyTreeValidateGetPersonServiceImpl();
 
-		FamilyTreeAddPersonService familyTreeAddPersonService = new FamilyTreeAddPersonServiceImpl();		
-		familyTreeAddPersonService.constructInitialFamilyTree(familyMembers);
+		FamilyTreeAddPersonService addPersonServiceObject = new FamilyTreeAddPersonServiceImpl();		
+		addPersonServiceObject.constructInitialFamilyTree(familyMembers);
 
-		FamilyTreeGetPersonService familyTreeGetPersonService = new FamilyTreeGetPersonServiceImpl();
+		FamilyTreeGetPersonService getPersonServiceObject = new FamilyTreeGetPersonServiceImpl();
 
 
 		System.out.println("-> -> ->  Welcome to 'Meet the Family' Geektrust backend challenge  <- <- <-");
@@ -61,10 +61,10 @@ public class FamilyTreeController {
 
 				switch(operationName) {
 					case FamilyTreeConstants.ADD_CHILD : 
-						familyTreeController.callAddChild(familyTreeValidateAddPersonService, familyTreeAddPersonService, inputParameters, familyMembers);
+						controllerObject.callAddChild(validateAddPersonServiceObject, addPersonServiceObject, inputParameters, familyMembers);
 						break;
 					case FamilyTreeConstants.GET_RELATIONSHIP : 
-						familyTreeController.callGetRelatives(familyTreeValidateGetPersonService, familyTreeGetPersonService, inputParameters, familyMembers);
+						controllerObject.callGetRelatives(validateGetPersonServiceObject, getPersonServiceObject, inputParameters, familyMembers);
 						break;
 					default : 
 						System.out.println(FamilyTreeEnum.INVALID_INPUT.getMessage());
@@ -95,7 +95,14 @@ public class FamilyTreeController {
 		sc.close();
 	}
 
-	public void callAddChild(FamilyTreeValidateAddPersonService familyTreeValidateAddPersonService, FamilyTreeAddPersonService familyTreeAddPersonService, 
+	
+	/* 
+	 * Function to orchestrate calls to other functions for adding a new member to 'familyMembers' data structure.
+	 * 
+	 * FamilyTreeValidateAddPersonService.validateAddChild() is initially called to validate input parameters.
+	 * Once input parameters are successfully validated, FamilyTreeAddPersonService.addChild() is called to add the new member.
+	 */
+	public void callAddChild(FamilyTreeValidateAddPersonService validateAddPersonServiceObject, FamilyTreeAddPersonService addPersonServiceObject, 
 			String[] inputParameters, Map<String, Person> familyMembers) throws FamilyTreeException {
 
 		if(inputParameters.length == 4) {
@@ -103,9 +110,9 @@ public class FamilyTreeController {
 			String childsName = inputParameters[2];
 			String childsGender = inputParameters[3];
 
-			String addChildValidationResult = familyTreeValidateAddPersonService.validateAddChild(familyMembers, mothersName, childsName, childsGender);
+			String addChildValidationResult = validateAddPersonServiceObject.validateAddChild(familyMembers, mothersName, childsName, childsGender);
 			if(addChildValidationResult.equals(FamilyTreeEnum.ADD_PERSON_POSSIBLE.getMessage())) {
-				System.out.println(familyTreeAddPersonService.addChild(familyMembers, mothersName, childsName, childsGender));
+				System.out.println(addPersonServiceObject.addChild(familyMembers, mothersName, childsName, childsGender));
 			}
 			else {
 				System.out.println(addChildValidationResult);
@@ -116,17 +123,24 @@ public class FamilyTreeController {
 		}
 	}
 
-	public void callGetRelatives(FamilyTreeValidateGetPersonService familyTreeValidateGetPersonService, FamilyTreeGetPersonService familyTreeGetPersonService, 
+	
+	/* 
+	 * Function to orchestrate calls to other functions for getting relatives from 'familyMembers' data structure of a particular person.
+	 * 
+	 * FamilyTreeValidateGetPersonService.validateGetRelatives() is initially called to validate input parameters.
+	 * Once input parameters are successfully validated, FamilyTreeGetPersonService.getRelatives() is called to obtain the list of relatives.
+	 */
+	public void callGetRelatives(FamilyTreeValidateGetPersonService validateGetPersonServiceObject, FamilyTreeGetPersonService getPersonServiceObject, 
 			String[] inputParameters, Map<String, Person> familyMembers) throws FamilyTreeException {
 
 		if(inputParameters.length == 3) {
 			String person = inputParameters[1];
 			String relationship = inputParameters[2];
 
-			String getChildValidationResult = familyTreeValidateGetPersonService.validateGetRelatives(familyMembers, person, relationship);
+			String getChildValidationResult = validateGetPersonServiceObject.validateGetRelatives(familyMembers, person, relationship);
 			if(getChildValidationResult.equals(FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage())) {
 
-				List<String> relatives = familyTreeGetPersonService.getRelatives(familyMembers, person, relationship);
+				List<String> relatives = getPersonServiceObject.getRelatives(familyMembers, person, relationship);
 
 				if(relatives.size() > 0) {
 					for(String relative : relatives) {
