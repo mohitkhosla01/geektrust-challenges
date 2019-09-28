@@ -2,7 +2,7 @@ package com.dto;
 
 import java.util.List;
 
-import com.utilities.FamilyTreeConstants;
+import com.utilities.FamilyTreeEnum;
 
 public class Person {
 	
@@ -14,7 +14,7 @@ public class Person {
 	private List<Person> children;
 	
 	public Person(String name, String gender, Person mother) {
-		if(gender.equalsIgnoreCase(FamilyTreeConstants.MALE) || gender.equalsIgnoreCase(FamilyTreeConstants.FEMALE)) {
+		if(gender.equalsIgnoreCase(FamilyTreeEnum.MALE.getMessage()) || gender.equalsIgnoreCase(FamilyTreeEnum.FEMALE.getMessage())) {
 			this.name = name;	
 			this.gender = gender.toLowerCase();
 			this.mother = mother;

@@ -3,107 +3,106 @@ package com.service;
 import java.util.Map;
 
 import com.dto.Person;
-import com.utilities.FamilyTreeEnum;
 
-public class FamilyTreeValidateGetPersonServiceImpl extends FamilyTreeManageValidateGetPersonService {
+public class FamilyTreeValidateGetPersonServiceImpl implements FamilyTreeValidateGetPersonService {
 	
 	// Function to determine if paternal uncles of a family member can be obtained based on given input parameters.
-	public String validateGetPaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
+	public boolean isPaternalUncleDeterminable(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person mother = familyMembers.get(personName).getMother();
 		if(mother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person father = mother.getSpouse();
 		if(father == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person paternalGrandmother = father.getMother();
 		if(paternalGrandmother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
-		return FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage();
+		return true;
 	}
 
 	// Function to determine if maternal uncles of a family member can be obtained based on given input parameters.
-	public String validateGetMaternalUncle(Map<String, Person> familyMembers, String personName, String relationship) {
+	public boolean isMaternalUncleDeterminable(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person mother = familyMembers.get(personName).getMother();
 		if(mother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person maternalGrandmother = mother.getMother();
 		if(maternalGrandmother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
-		return FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage();
+		return true;
 	}
 
 	// Function to determine if paternal aunts of a family member can be obtained based on given input parameters.
-	public String validateGetPaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
+	public boolean isPaternalAuntDeterminable(Map<String, Person> familyMembers, String personName, String relationship) {
 		
 		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person mother = familyMembers.get(personName).getMother();
 		if(mother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person father = mother.getSpouse();
 		if(father == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person paternalGrandmother = father.getMother();
 		if(paternalGrandmother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
-		return FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage();
+		return true;
 	}
 
 	// Function to determine if maternal aunts of a family member can be obtained based on given input parameters.
-	public String validateGetMaternalAunt(Map<String, Person> familyMembers, String personName, String relationship) {
+	public boolean isMaternalAuntDeterminable(Map<String, Person> familyMembers, String personName, String relationship) {
 
 		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person mother = familyMembers.get(personName).getMother();
 		if(mother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
 		Person maternalGrandmother = mother.getMother();
 		if(maternalGrandmother == null) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
-		return FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage();
+		return true;
 	}
 
 	// Function to determine if 'familyMembers' data structure contains a particular person.
-	public String validateGetPerson(Map<String, Person> familyMembers, String personName, String relationship) {
-
+	public boolean isPersonDeterminable(Map<String, Person> familyMembers, String personName, String relationship) {
+		
 		if(!familyMembers.containsKey(personName)) {
-			return FamilyTreeEnum.PERSON_NOT_FOUND.getMessage();
+			return false;
 		}
 
-		return FamilyTreeEnum.GET_PERSON_POSSIBLE.getMessage();
+		return true;
 	}
 }

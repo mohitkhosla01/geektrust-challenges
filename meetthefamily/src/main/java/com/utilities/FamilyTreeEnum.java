@@ -2,6 +2,9 @@ package com.utilities;
 
 public enum FamilyTreeEnum {
 	
+	MALE("male"),
+	FEMALE("female"),
+
 	NONE("NONE"),
 	PERSON_NOT_FOUND("PERSON_NOT_FOUND"),
 	INVALID_INPUT("INVALID_INPUT"),

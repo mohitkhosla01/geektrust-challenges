@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.dto.Person;
 import com.exception.FamilyTreeException;
-import com.utilities.FamilyTreeConstants;
 import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonService {
@@ -18,8 +17,8 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 	public void constructInitialFamilyTree(Map<String, Person> familyMembers) {
 
 		// ->-> LEVEL 1 <-<-
-		Person shan = new Person("Shan", FamilyTreeConstants.MALE, null);
-		Person anga = new Person("Anga", FamilyTreeConstants.FEMALE, null);
+		Person shan = new Person("Shan", FamilyTreeEnum.MALE.getMessage(), null);
+		Person anga = new Person("Anga", FamilyTreeEnum.FEMALE.getMessage(), null);
 
 		shan.setSpouse(anga);
 		anga.setSpouse(shan);
@@ -29,8 +28,8 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// ->-> LEVEL 2 <-<-
-		Person chit = new Person("Chit", FamilyTreeConstants.MALE, anga);
-		Person amba = new Person("Amba", FamilyTreeConstants.FEMALE, null);
+		Person chit = new Person("Chit", FamilyTreeEnum.MALE.getMessage(), anga);
+		Person amba = new Person("Amba", FamilyTreeEnum.FEMALE.getMessage(), null);
 
 		chit.setSpouse(amba);
 		amba.setSpouse(chit);
@@ -39,12 +38,12 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		familyMembers.put("Amba", amba);
 
 
-		Person ish = new Person("Ish", FamilyTreeConstants.MALE, anga);
+		Person ish = new Person("Ish", FamilyTreeEnum.MALE.getMessage(), anga);
 		familyMembers.put("Ish", ish);
 
 
-		Person vich = new Person("Vich", FamilyTreeConstants.MALE, anga);
-		Person lika = new Person("Lika", FamilyTreeConstants.FEMALE, null);
+		Person vich = new Person("Vich", FamilyTreeEnum.MALE.getMessage(), anga);
+		Person lika = new Person("Lika", FamilyTreeEnum.FEMALE.getMessage(), null);
 
 		vich.setSpouse(lika);
 		lika.setSpouse(vich);
@@ -53,8 +52,8 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		familyMembers.put("Lika", lika);
 
 
-		Person aras = new Person("Aras", FamilyTreeConstants.MALE, anga);
-		Person chitra = new Person("Chitra", FamilyTreeConstants.FEMALE, null);
+		Person aras = new Person("Aras", FamilyTreeEnum.MALE.getMessage(), anga);
+		Person chitra = new Person("Chitra", FamilyTreeEnum.FEMALE.getMessage(), null);
 
 		aras.setSpouse(chitra);
 		chitra.setSpouse(aras);
@@ -63,8 +62,8 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		familyMembers.put("Chitra", chitra);
 
 
-		Person satya = new Person("Satya", FamilyTreeConstants.FEMALE, anga);
-		Person vyan = new Person("Vyan", FamilyTreeConstants.MALE, null);
+		Person satya = new Person("Satya", FamilyTreeEnum.FEMALE.getMessage(), anga);
+		Person vyan = new Person("Vyan", FamilyTreeEnum.MALE.getMessage(), null);
 
 		satya.setSpouse(vyan);
 		vyan.setSpouse(satya);
@@ -85,8 +84,8 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		// ->-> LEVEL 3 <-<-
 
 		// -> SEGMENT 1 <-
-		Person dritha = new Person("Dritha", FamilyTreeConstants.FEMALE, amba);
-		Person jaya = new Person("Jaya", FamilyTreeConstants.MALE, null);
+		Person dritha = new Person("Dritha", FamilyTreeEnum.FEMALE.getMessage(), amba);
+		Person jaya = new Person("Jaya", FamilyTreeEnum.MALE.getMessage(), null);
 
 		dritha.setSpouse(jaya);
 		jaya.setSpouse(dritha);
@@ -95,10 +94,10 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		familyMembers.put("Jaya", jaya);
 
 
-		Person tritha = new Person("Tritha", FamilyTreeConstants.FEMALE, amba);
+		Person tritha = new Person("Tritha", FamilyTreeEnum.FEMALE.getMessage(), amba);
 		familyMembers.put("Tritha", tritha);
 
-		Person vritha = new Person("Vritha", FamilyTreeConstants.MALE, amba);
+		Person vritha = new Person("Vritha", FamilyTreeEnum.MALE.getMessage(), amba);
 		familyMembers.put("Vritha", vritha);
 
 
@@ -110,10 +109,10 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 2 <-
-		Person vila = new Person("Vila", FamilyTreeConstants.FEMALE, lika);
+		Person vila = new Person("Vila", FamilyTreeEnum.FEMALE.getMessage(), lika);
 		familyMembers.put("Vila", vila);
 
-		Person chika = new Person("Chika", FamilyTreeConstants.FEMALE, lika);
+		Person chika = new Person("Chika", FamilyTreeEnum.FEMALE.getMessage(), lika);
 		familyMembers.put("Chika", chika);
 
 
@@ -124,8 +123,8 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 3 <-
-		Person arit = new Person("Arit", FamilyTreeConstants.MALE, null);
-		Person jnki = new Person("Jnki", FamilyTreeConstants.FEMALE, chitra);
+		Person arit = new Person("Arit", FamilyTreeEnum.MALE.getMessage(), null);
+		Person jnki = new Person("Jnki", FamilyTreeEnum.FEMALE.getMessage(), chitra);
 
 		arit.setSpouse(jnki);
 		jnki.setSpouse(arit);
@@ -134,7 +133,7 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		familyMembers.put("Jnki", jnki);
 
 
-		Person ahit = new Person("Ahit", FamilyTreeConstants.MALE, chitra);
+		Person ahit = new Person("Ahit", FamilyTreeEnum.MALE.getMessage(), chitra);
 		familyMembers.put("Ahit", ahit);
 
 
@@ -145,8 +144,8 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 4 <-
-		Person satvy = new Person("Satvy", FamilyTreeConstants.FEMALE, null);
-		Person asva = new Person("Asva", FamilyTreeConstants.MALE, satya);
+		Person satvy = new Person("Satvy", FamilyTreeEnum.FEMALE.getMessage(), null);
+		Person asva = new Person("Asva", FamilyTreeEnum.MALE.getMessage(), satya);
 
 		satvy.setSpouse(asva);
 		asva.setSpouse(satvy);
@@ -155,8 +154,8 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		familyMembers.put("Asva", asva);
 
 
-		Person krpi = new Person("Krpi", FamilyTreeConstants.FEMALE, null);
-		Person vyas = new Person("Vyas", FamilyTreeConstants.MALE, satya);
+		Person krpi = new Person("Krpi", FamilyTreeEnum.FEMALE.getMessage(), null);
+		Person vyas = new Person("Vyas", FamilyTreeEnum.MALE.getMessage(), satya);
 
 		krpi.setSpouse(vyas);
 		vyas.setSpouse(krpi);
@@ -165,7 +164,7 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		familyMembers.put("Vyas", vyas);
 
 
-		Person atya = new Person("Atya", FamilyTreeConstants.FEMALE, satya);
+		Person atya = new Person("Atya", FamilyTreeEnum.FEMALE.getMessage(), satya);
 		familyMembers.put("Atya", atya);
 
 
@@ -179,7 +178,7 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 		// ->-> LEVEL 4 <-<-
 
 		// -> SEGMENT 1 <-
-		Person yodhan = new Person("Yodhan", FamilyTreeConstants.MALE, dritha);
+		Person yodhan = new Person("Yodhan", FamilyTreeEnum.MALE.getMessage(), dritha);
 		familyMembers.put("Yodhan", yodhan);
 
 
@@ -189,10 +188,10 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 2 <-
-		Person laki = new Person("Laki", FamilyTreeConstants.MALE, jnki);
+		Person laki = new Person("Laki", FamilyTreeEnum.MALE.getMessage(), jnki);
 		familyMembers.put("Laki", laki);
 
-		Person lavnya = new Person("Lavnya", FamilyTreeConstants.FEMALE, jnki);
+		Person lavnya = new Person("Lavnya", FamilyTreeEnum.FEMALE.getMessage(), jnki);
 		familyMembers.put("Lavnya", lavnya);
 
 
@@ -203,7 +202,7 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 3 <-
-		Person vasa = new Person("Vasa", FamilyTreeConstants.MALE, satvy);
+		Person vasa = new Person("Vasa", FamilyTreeEnum.MALE.getMessage(), satvy);
 		familyMembers.put("Vasa", vasa);
 
 
@@ -213,10 +212,10 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 
 
 		// -> SEGMENT 4 <-
-		Person kriya = new Person("Kriya", FamilyTreeConstants.MALE, krpi);
+		Person kriya = new Person("Kriya", FamilyTreeEnum.MALE.getMessage(), krpi);
 		familyMembers.put("Kriya", kriya);
 
-		Person krithi = new Person("Krithi", FamilyTreeConstants.FEMALE, krpi);
+		Person krithi = new Person("Krithi", FamilyTreeEnum.FEMALE.getMessage(), krpi);
 		familyMembers.put("Krithi", krithi);
 
 
@@ -233,17 +232,24 @@ public class FamilyTreeAddPersonServiceImpl implements FamilyTreeAddPersonServic
 	public String addChild(Map<String, Person> familyMembers, String mothersName, String childsName, String childsGender) throws FamilyTreeException {
 
 		try {
-			Person child = new Person(childsName, childsGender, familyMembers.get(mothersName));
+			String validationResult = new FamilyTreeValidateAddPersonServiceImpl().validateAddChild(familyMembers, mothersName, childsName, childsGender);
+			
+			if(validationResult.equals(FamilyTreeEnum.ADD_PERSON_POSSIBLE.getMessage())) {
+				Person child = new Person(childsName, childsGender, familyMembers.get(mothersName));
 
-			List<Person> mothersChildren = familyMembers.get(mothersName).getChildren();
-			if(mothersChildren == null) {
-				mothersChildren = new ArrayList<Person>();
+				List<Person> mothersChildren = familyMembers.get(mothersName).getChildren();
+				if(mothersChildren == null) {
+					mothersChildren = new ArrayList<Person>();
+				}
+				mothersChildren.add(child);
+
+				familyMembers.put(childsName, child);
+
+				return FamilyTreeEnum.CHILD_ADDITION_SUCCEEDED.getMessage();
 			}
-			mothersChildren.add(child);
-
-			familyMembers.put(childsName, child);
-
-			return FamilyTreeEnum.CHILD_ADDITION_SUCCEEDED.getMessage();
+			else {
+				return validationResult;
+			}
 		}
 		catch(Exception e) {
 			throw new FamilyTreeException(FamilyTreeEnum.CHILD_ADDITION_FAILED);
