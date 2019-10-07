@@ -5,6 +5,7 @@ This project contains artefacts of the Geektrust backend challenge: Meet the Fam
 ### Assumptions
 
 * Every family member has a unique name.
+* A family unit consists of a mother(female) and a father(male). Same-sex relationships have not been considered.
 
 ### Getting started with the project
 
