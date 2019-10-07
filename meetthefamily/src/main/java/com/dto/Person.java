@@ -1,14 +1,11 @@
 package com.dto;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
-import com.exception.FamilyTreeException;
-import com.service.AddPersonHelper;
-import com.service.GetPersonHelper;
 import com.utilities.FamilyTreeEnum;
+import com.getfamilymember.GetPersonHelper;
+import com.exception.FamilyTreeException;
 
 public class Person {
 
@@ -195,17 +192,23 @@ public class Person {
 	 *  Function to add a new member to the family tree.
 	 *  Details of the new family member are received as input from the end user.
 	 */
-	public String addChild(String mothersName, String childsName, String childsGender) throws FamilyTreeException {
+	public boolean addFamilyMember(String mothersName, String childsName, String childsGender) throws FamilyTreeException {
 
 		try {
-			boolean childAdded = new AddPersonHelper().addChildHelper(this, mothersName, childsName, childsGender);
+			Person mother = GetPersonHelper.getPerson(this, mothersName);
+			if(mother == null) {
+				return false;
+			}
+			
+			Person child = new Person(childsName, childsGender, mother);
 
-			if(childAdded) {
-				return FamilyTreeEnum.CHILD_ADDITION_SUCCEEDED.getMessage();
+			List<Person> children = mother.getChildren();
+			if(children == null) {
+				children = new ArrayList<Person>();
 			}
-			else {
-				return FamilyTreeEnum.CHILD_ADDITION_FAILED.getMessage();
-			}
+			children.add(child);
+			
+			return true;
 		}
 		catch(Exception e) {
 			throw new FamilyTreeException(FamilyTreeEnum.CHILD_ADDITION_FAILED);
@@ -216,13 +219,10 @@ public class Person {
 	 *  Function to obtain a family member & his/her details from the family tree.
 	 *  Name of the family member is received as input from the end user.
 	 */
-	public Person getFamilyMember(Person shan, String personName) throws FamilyTreeException {
+	public Person getFamilyMember(String personName) throws FamilyTreeException {
 
 		try {
-			Queue<Person> people = new LinkedList<Person>();
-			people.add(shan);
-			
-			return new GetPersonHelper().getFamilyMemberHelper(people, personName);
+			return GetPersonHelper.getPerson(this, personName);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
