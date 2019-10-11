@@ -225,7 +225,6 @@ public class Person {
 			return GetPersonHelper.getPerson(this, personName);
 		}
 		catch(Exception e) {
-			e.printStackTrace();
 			throw new FamilyTreeException(FamilyTreeEnum.PERSON_NOT_FOUND);
 		}
 	}
