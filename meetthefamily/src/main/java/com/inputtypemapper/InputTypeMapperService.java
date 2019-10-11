@@ -1,4 +1,4 @@
-package com.inputhandler;
+package com.inputtypemapper;
 
 import com.dto.Person;
 import com.addfamilymember.AddChildService;
