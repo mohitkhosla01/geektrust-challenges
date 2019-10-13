@@ -3,9 +3,9 @@ package com.inputtypemapper;
 import com.dto.Person;
 import com.utilities.FamilyTreeEnum;
 
-public abstract class InputTypeMapper {
+public abstract class InputOperationMapper {
 
-	public String mapInputType(Person person, String[] inputParameters) throws Exception {
+	public String mapInputOperation(Person person, String[] inputParameters) throws Exception {
 		
 		String operationName = inputParameters[0];
 		

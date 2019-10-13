@@ -1,10 +1,10 @@
 package com.inputtypemapper;
 
-import com.dto.Person;
 import com.addfamilymember.AddChildService;
+import com.dto.Person;
 import com.getfamilymember.GetRelationshipService;
 
-public class InputTypeMapperService extends InputTypeMapper {
+public class InputOperationService extends InputOperationMapper {
 	
 	// Function to add a child to the Shan family tree.
 	public String addChild(Person shan, String[] inputParameters) throws Exception {

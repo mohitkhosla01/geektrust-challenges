@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class InputHandlerFromFile implements InputHandler {
+public class InputFromFile extends InputType {
 
 	public List<String> input() {
 		
