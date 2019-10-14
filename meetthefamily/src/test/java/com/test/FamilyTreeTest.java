@@ -29,57 +29,134 @@ public class FamilyTreeTest extends TestCase {
 	}
 	
 	
-	public void testAddChild() throws Exception {
+	// ** Add child test operations **
+	public void testAddChildKetu() throws Exception {
 		String inputLine = "ADD_CHILD Satya Ketu Male";
 		
-		String addChildExpectedResponse = "CHILD_ADDITION_SUCCEEDED";
-		String addChildActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		String testAddChildExpectedResponse = "CHILD_ADDITION_SUCCEEDED";
+		String testAddChildActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
 		
-		assertEquals(addChildExpectedResponse, addChildActualResponse);
+		assertEquals(testAddChildExpectedResponse, testAddChildActualResponse);
 	}
 	
-	public void testGetRelationship1() throws Exception {
+	public void testAddChildSila() throws Exception {
+		String inputLine = "ADD_CHILD Lika Sila Female";
+		
+		String testAddChildExpectedResponse = "CHILD_ADDITION_SUCCEEDED";
+		String testAddChildActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		
+		assertEquals(testAddChildExpectedResponse, testAddChildActualResponse);
+	}
+	
+	public void testAddChildGritha() throws Exception {
+		String inputLine = "ADD_CHILD Amba Gritha Male";
+		
+		String testAddChildExpectedResponse = "CHILD_ADDITION_SUCCEEDED";
+		String testAddChildActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		
+		assertEquals(testAddChildExpectedResponse, testAddChildActualResponse);
+	}
+	
+	public void testAddChildSaavna() throws Exception {
+		String inputLine = "ADD_CHILD Champa Saavna Female";
+		
+		String testAddChildExpectedResponse = "CHILD_ADDITION_FAILED";
+		String testAddChildActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		
+		assertEquals(testAddChildExpectedResponse, testAddChildActualResponse);
+	}
+	// ** Add child test operations **
+	
+	
+	// ** Get relationship test operations **
+	public void testGetRelationshipKriyaPaternalUncle() throws Exception {
 		String inputLine = "GET_RELATIONSHIP Kriya Paternal-Uncle";
 		
-		String getRelationshipExpectedResponse = "Asva";
-		String getRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		String testGetRelationshipExpectedResponse = "Asva";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
 		
-		assertEquals(getRelationshipExpectedResponse, getRelationshipActualResponse);
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);
 	}
 	
-	public void testGetRelationship2() throws Exception {
+	public void testGetRelationshipSatyaBrotherInLaw() throws Exception {
 		String inputLine = "GET_RELATIONSHIP Satvy Brother-In-Law";
 		
-		String getRelationshipExpectedResponse = "Vyas";
-		String getRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		String testGetRelationshipExpectedResponse = "Vyas";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
 		
-		assertEquals(getRelationshipExpectedResponse, getRelationshipActualResponse);
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);
 	}
 	
-	public void testGetRelationship3() throws Exception {
+	public void testGetRelationshipSatvySisterInLaw() throws Exception {
 		String inputLine = "GET_RELATIONSHIP Satvy Sister-In-Law";
 		
-		String getRelationshipExpectedResponse = "Atya";
-		String getRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		String testGetRelationshipExpectedResponse = "Atya";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
 		
-		assertEquals(getRelationshipExpectedResponse, getRelationshipActualResponse);
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);
 	}
 	
-	public void testGetRelationship4() throws Exception {
+	public void testGetRelationshipIshSon() throws Exception {
 		String inputLine = "GET_RELATIONSHIP Ish Son";
 		
-		String getRelationshipExpectedResponse = "NONE";
-		String getRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		String testGetRelationshipExpectedResponse = "NONE";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
 		
-		assertEquals(getRelationshipExpectedResponse, getRelationshipActualResponse);	  
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);	  
 	}
 	
-	public void testGetRelationship5() throws Exception {
+	public void testGetRelationshipMishaDaughter() throws Exception {
 		String inputLine = "GET_RELATIONSHIP Misha Daughter";
 		
-		String getRelationshipExpectedResponse = "PERSON_NOT_FOUND";
-		String getRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		String testGetRelationshipExpectedResponse = "PERSON_NOT_FOUND";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
 		
-		assertEquals(getRelationshipExpectedResponse, getRelationshipActualResponse);	  
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);	  
 	}
+	
+	public void testGetRelationshipLikaDaughter() throws Exception {
+		String inputLine = "GET_RELATIONSHIP Lika Daughter";
+		
+		String testGetRelationshipExpectedResponse = "Vila Chika";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);	  
+	}
+	
+	public void testGetRelationshipAmbaSon() throws Exception {
+		String inputLine = "GET_RELATIONSHIP Amba Son";
+		
+		String testGetRelationshipExpectedResponse = "Vritha";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);	  
+	}
+	
+	public void testGetRelationshipJnkiSon() throws Exception {
+		String inputLine = "GET_RELATIONSHIP Jnki Son";
+		
+		String testGetRelationshipExpectedResponse = "Laki";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);	  
+	}
+	
+	public void testGetRelationshipJnkiDaughter() throws Exception {
+		String inputLine = "GET_RELATIONSHIP Jnki Daughter";
+		
+		String testGetRelationshipExpectedResponse = "Lavnya";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);	  
+	}
+	
+	public void testGetRelationshipLavnyaMaternalAunt() throws Exception {
+		String inputLine = "GET_RELATIONSHIP Lavnya Maternal-Aunt";
+		
+		String testGetRelationshipExpectedResponse = "NONE";
+		String testGetRelationshipActualResponse = inputOperationService.mapInputOperation(shan, inputLine);
+		
+		assertEquals(testGetRelationshipExpectedResponse, testGetRelationshipActualResponse);	  
+	}
+	// ** Get relationship test operations **
 }
