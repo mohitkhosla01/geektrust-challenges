@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.dto.Person;
 import com.exception.FamilyTreeException;
-import com.inputhandler.InputFromFile;
 import com.inputhandler.InputType;
+import com.inputhandler.InputTypeFactory;
 import com.inputtypemapper.InputOperationService;
-import com.outputhandler.OutputHandler;
-import com.outputhandler.OutputToConsole;
+import com.outputhandler.OutputType;
+import com.outputhandler.OutputTypeFactory;
 import com.utilities.FamilyTreeEnum;
 
 public class FamilyTreeController {
@@ -23,18 +23,17 @@ public class FamilyTreeController {
 			
 			System.out.println("-> -> ->  Welcome to 'Meet the Family' Geektrust backend challenge  <- <- <-");
 			
-			InputType input = new InputFromFile();
-			List<String> inputLines = input.input();
+			InputType inputType = InputTypeFactory.getInputType("FILE");
+			List<String> inputLines = inputType.input();
 			
-			OutputHandler outputHandler = new OutputToConsole();
+			OutputType outputType = OutputTypeFactory.getOutputType("CONSOLE");
 			List<String> outputLines = new ArrayList<String>();
 			
-			for(String line : inputLines) {
-				String[] inputParameters = line.split(" ");
-				outputLines.add(new InputOperationService().mapInputOperation(shan, inputParameters));
+			for(String inputLine : inputLines) {
+				outputLines.add(new InputOperationService().mapInputOperation(shan, inputLine));
 			}
 			
-			outputHandler.output(outputLines);
+			outputType.output(outputLines);
 		}
 		catch(FamilyTreeException fte) {
 			System.out.println(fte.getFamilyTreeEnum().getMessage());

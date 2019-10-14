@@ -5,8 +5,9 @@ import com.utilities.FamilyTreeEnum;
 
 public abstract class InputOperationMapper {
 
-	public String mapInputOperation(Person person, String[] inputParameters) throws Exception {
+	public String mapInputOperation(Person person, String inputLine) throws Exception {
 		
+		String[] inputParameters = inputLine.split(" ");
 		String operationName = inputParameters[0];
 		
 		switch(operationName) {
